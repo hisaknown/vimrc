@@ -1,0 +1,44 @@
+[[plugins]]
+repo = 'katono/rogue.vim'
+
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'thinca/vim-showtime'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'hynek/vim-python-pep8-indent'
+on_ft = ['python']
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+on_cmd = ['Gina']
+
+[[plugins]]
+repo = 'koturn/vim-replica'
+on_cmd = ['Replica', 'ReplicaInternal']
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'syngan/vim-pukiwiki'
+on_cmd = ['PukiWiki']
+on_ft = ['pukiwiki']
+
+[[plugins]]
+repo = 'metakirby5/codi.vim'
+on_cmd = ['Codi', 'CodiUpdate']
+
+[[plugins]]
+repo = 'rhysd/vim-grammarous'
+on_cmd = ['GrammarousCheck']
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = ['python']
+

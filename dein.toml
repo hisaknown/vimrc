@@ -1,0 +1,143 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+
+  [plugins.build]
+  #windows = 'tools\\update-dll-mingw.bat 64'
+  cygwin  = 'make -f make_cygwin.mak'
+  mac     = 'make -f make_mac.mak'
+  linux   = 'make'
+  unix    = 'gmake'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/unite-outline'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
+[[plugins]]
+repo = 'thinca/vim-splash'
+
+[[plugins]]
+repo = 'osyo-manga/vim-brightest'
+
+[[plugins]]
+repo = 'chrisbra/Colorizer'
+
+[[plugins]]
+repo = 'sudar/vim-arduino-syntax'
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+
+[[plugins]]
+repo = 'thinca/vim-fontzoom'
+
+[[plugins]]
+repo = 'vim-scripts/DrawIt'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+
+[[plugins]]
+repo = 'MaxSt/FlatColor'
+
+[[plugins]]
+repo = 'jonathanfilip/vim-lucius'
+
+[[plugins]]
+repo = 'mattn/benchvimrc-vim'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repo = 'junegunn/vim-emoji'
+
+[[plugins]]
+repo = 'tommcdo/vim-lion'
+
+[[plugins]]
+repo = 'cocopon/vaffle.vim'
+#on_cmd = ['Vaffle']
+
+[[plugins]]
+repo = 'mattn/vimtweak'
+if   = '''has('win32') && ! has('kaoriya')'''
+
+[[plugins]]
+repo = 'NLKNguyen/papercolor-theme'
+
+[[plugins]]
+repo = 'thomd/vim-wasabi-colorscheme'
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/echodoc.vim'
+
+[[plugins]]
+repo = 'fszymanski/deoplete-emoji'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
+repo = 'haya14busa/vim-edgemotion'
+
+[[plugins]]
+repo = 'iyuuya/denite-ale'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
