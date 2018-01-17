@@ -531,6 +531,8 @@ let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_sign_info = ''
 let g:ale_set_loc_list = 0
+let g:ale_lint_delay = 1000
+let g:ale_echo_delay = 500
 
 autocmd vimrc ColorScheme * highlight ALEErrorSign ctermfg=95 guifg=#875f5f
 autocmd vimrc ColorScheme * highlight ALEWarningSign ctermfg=101 guifg=#87875f
@@ -539,21 +541,24 @@ autocmd vimrc ColorScheme * highlight ALEStyleWarningSign ctermfg=101 guifg=#878
 autocmd vimrc ColorScheme * highlight ALEStyleInfoSign ctermfg=24 guifg=#005f87
 " Turn style errors in flake8 into style warnings.
 let g:ale_type_map = {'flake8': {'ES': 'WS'}}
-" }}}
 
 function! ALENetworkDriveFileSettings(timer)
     if !has('win32')
         return
     endif
     if exists('b:file_is_nw_drive') && b:file_is_nw_drive == 0
-        let b:ale_lint_on_text_changed = 0
+        " These settings may not be applied...
+        " They may need to be set before initializing ALE.
+        let b:ale_lint_on_text_changed = 'never'
         let b:ale_lint_on_enter = 0
+        let b:ale_lint_on_insert_leave = 1
         let b:ale_lint_on_save = 1
         let b:ale_lint_on_filetype_changed = 1
         call timer_stop(a:timer)
     endif
 endfunction
 autocmd vimrc BufReadPost * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
+" }}}
 
 " Deoplete.nvim {{{
 let g:deoplete#auto_complete_delay = 50
