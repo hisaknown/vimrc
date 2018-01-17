@@ -251,12 +251,16 @@ endif
 " Detect network drive (to avoid poor performance) on Windows
 function! s:set_network_drive_state()
     if has('win32')
+        if exists('b:file_is_nw_drive')
+            echomsg expand('%:p')
+            unlet b:file_is_nw_drive
+        endif
         let b:drive_letter = expand('%:p')[:1]
         let b:net_use_job = job_start('cmd /c "net use ' . b:drive_letter . '"',
                     \ {'exit_cb': {job, ret -> execute('let b:file_is_nw_drive = ' . printf('%d', ret))}})
     endif
 endfunction
-autocmd vimrc BufReadPre * call s:set_network_drive_state()
+autocmd vimrc BufRead * call s:set_network_drive_state()
 
 "---------------------------------------------------------------------------
 " KaoriYaでバンドルしているプラグインのための設定
