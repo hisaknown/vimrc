@@ -8,15 +8,13 @@ set hlsearch
 set background=dark
 syntax enable
 
-colorscheme iceberg
 autocmd gvimrc ColorScheme * highlight! SpecialKey guibg=#050505
 autocmd gvimrc ColorScheme * highlight! NonText guibg=#050505
-let g:lightline['colorscheme'] = 'iceberg'
-call lightline#init()
-
 autocmd gvimrc ColorScheme * highlight! Conceal guibg=#000000 guifg=#c5c8c6
 autocmd gvimrc ColorScheme * highlight! Normal guibg=#050505
-
+colorscheme iceberg
+let g:lightline['colorscheme'] = 'iceberg'
+call lightline#init()
 " }}}
 
 " Fonts {{{
