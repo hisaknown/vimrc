@@ -512,6 +512,9 @@ nnoremap <Leader>df :<C-u>Denite file_rec <CR>
 nnoremap <Leader>do :<C-u>Denite file_old <CR>
 nnoremap <Leader>da :<C-u>Denite ale <CR>
 nnoremap <Leader>db :<C-u>Denite buffer <CR>
+
+" ctags.exe on MSYS2 calls sort.exe, while backslashes are handled badly.
+" call denite#custom#var('outline', 'options', ['--sort=no'])
 " }}}
 
 " Python3 dll
