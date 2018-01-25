@@ -252,7 +252,6 @@ endif
 function! s:set_network_drive_state()
     if has('win32')
         if exists('b:file_is_nw_drive')
-            echomsg expand('%:p')
             unlet b:file_is_nw_drive
         endif
         let b:drive_letter = expand('%:p')[:1]
@@ -544,7 +543,11 @@ let g:ale_type_map = {'flake8': {'ES': 'WS'}}
 
 function! ALENetworkDriveFileSettings(timer)
     if !has('win32')
+        call timer_stop(a:timer)
         return
+    endif
+    if exists('b:file_is_nw_drive')
+        call timer_stop(a:timer)
     endif
     if exists('b:file_is_nw_drive') && b:file_is_nw_drive == 0
         " These settings may not be applied...
@@ -554,7 +557,6 @@ function! ALENetworkDriveFileSettings(timer)
         let b:ale_lint_on_insert_leave = 1
         let b:ale_lint_on_save = 1
         let b:ale_lint_on_filetype_changed = 1
-        call timer_stop(a:timer)
     endif
 endfunction
 autocmd vimrc BufReadPost * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
