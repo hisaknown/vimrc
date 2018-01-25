@@ -144,3 +144,6 @@ repo = 'majutsushi/tagbar'
 
 [[plugins]]
 repo = 'mopp/sky-color-clock.vim'
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
