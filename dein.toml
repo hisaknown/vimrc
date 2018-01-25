@@ -141,3 +141,6 @@ repo = 'iyuuya/denite-ale'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'mopp/sky-color-clock.vim'

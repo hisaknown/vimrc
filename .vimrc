@@ -387,6 +387,7 @@ endfunction
 let g:lightline = {
             \ 'component': {
             \   'lineinfo': '%3l:%-2v',
+            \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}",
             \ },
             \ 'active': {
             \   'left': [
@@ -394,7 +395,7 @@ let g:lightline = {
             \     ['readonly', 'filename', 'modified'],
             \   ],
             \   'right': [
-            \     ['lineinfo' ],
+            \     ['lineinfo', 'sky_color_clock'],
             \     ['ale_status', 'fileformat', 'fileencoding', 'filetype'],
             \   ],
             \ },
@@ -416,6 +417,7 @@ let g:lightline = {
             \ },
             \ 'component_visible_condition': {
             \   'lineinfo': '(winwidth(0) >= 70)',
+            \   'sky_color_clock': 0,
             \ },
             \ 'component_function': {
             \   'readonly': 'g:lightline.my.readonly',
@@ -423,6 +425,9 @@ let g:lightline = {
             \   'ale_status': 'g:lightline.my.ale_status',
             \   'filetype': 'g:lightline.my.filetype',
             \   'fileformat': 'g:lightline.my.fileformat',
+            \ },
+            \ 'component_raw': {
+            \   'sky_color_clock': 1,
             \ },
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' },
@@ -606,6 +611,18 @@ let g:tagbar_type_markdown = {
             \ },
             \ 'sort': 0,
             \ }
+" }}}
+
+" sky-color-clock settings{{{
+let g:sky_color_clock#latitude = 35
+" let g:sky_color_clock#color_stops
+let g:sky_color_clock#datetime_format = '%H:%M'
+let g:sky_color_clock#enable_emoji_icon = 1
+" }}}
+
+" Gina settings {{{
+call gina#custom#command#option('status', '--opener', &previewheight . 'split')
+call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
 " }}}
 
 " Load at-office-specific settings {{{
