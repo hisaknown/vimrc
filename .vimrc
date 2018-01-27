@@ -302,8 +302,8 @@ let g:quickrun_config['tex'] = {
             \   'runner/read_timeout': 10,
             \ }
 
-autocmd vimrc BufEnter *.tex call <SID>SetLaTeXMainSource()
-autocmd vimrc BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
+autocmd vimrc BufEnter *.tex call s:SetLaTeXMainSource()
+autocmd vimrc BufEnter *.tex nnoremap <Leader>v :call s:TexPdfView() <CR>
 
 " Make *.tex.latexmain when the file is exists in the same directory of
 " current file.
