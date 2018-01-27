@@ -392,7 +392,7 @@ endfunction
 let g:lightline = {
             \ 'component': {
             \   'lineinfo': '%3l:%-2v',
-            \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}",
+            \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
             \ },
             \ 'active': {
             \   'left': [
@@ -620,6 +620,8 @@ let g:sky_color_clock#latitude = 35
 " let g:sky_color_clock#color_stops
 let g:sky_color_clock#datetime_format = '%H:%M'
 let g:sky_color_clock#enable_emoji_icon = 1
+let g:sky_color_clock#openweathermap_api_key = '5f017fc5757873276de65e1fe91fa360'
+let g:sky_color_clock#openweathermap_city_id = '1850144'
 " }}}
 
 " Gina settings {{{
