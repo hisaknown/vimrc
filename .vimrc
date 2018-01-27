@@ -61,8 +61,17 @@ endif
 execute 'set runtimepath^=' . s:dein_dir . 'repos/github.com/Shougo/vimproc.vim'
 " }}}
 
+" Mkdir if the directory does not exist
+function! s:mkdir_if_not_exist(path)
+    if !isdirectory(a:path)
+        call mkdir(a:path, 'p')
+    endif
+endfunction
+
 " Change temp directory since it doesn't work when username contains dots.
 if has('win32')
+    call s:mkdir_if_not_exist('C:\Temp')
+    call s:mkdir_if_not_exist('C:\Tmp')
     let $TMP = 'C:\Temp\'
     let $TEMP = 'C:\Temp\'
 endif
@@ -169,9 +178,12 @@ autocmd vimrc ColorScheme * highlight Normal ctermbg=none
 " Misc. file settings
 set backup
 let &backupdir = g:dotvim_path . '/tmp/backup'
+call s:mkdir_if_not_exist(&backupdir)
 set undofile
 let &undodir = g:dotvim_path . '/tmp/undo'
+call s:mkdir_if_not_exist(&undodir)
 let &directory = g:dotvim_path . '/tmp/swap'
+call s:mkdir_if_not_exist(&directory)
 if has('nvim')
     set viminfo+=n~/.nviminfo
 else
