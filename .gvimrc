@@ -1,9 +1,12 @@
+scriptencoding utf-8
+
 " Augroup for gvimrc
 augroup gvimrc
     autocmd!
 augroup END
 
 " Colors and appearance {{{
+" Colors {{{
 set hlsearch
 set background=dark
 syntax enable

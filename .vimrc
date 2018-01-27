@@ -1,3 +1,4 @@
+scriptencoding utf-8
 filetype off            " for vundle
 
 " Download vimproc dll on Windows
