@@ -5,7 +5,6 @@ augroup gvimrc
     autocmd!
 augroup END
 
-" Colors and appearance {{{
 " Colors {{{
 set hlsearch
 set background=dark

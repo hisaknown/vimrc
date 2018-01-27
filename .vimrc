@@ -214,27 +214,19 @@ nnoremap <S-Tab> gT
 nnoremap <C-Tab> :tabnew<CR>
 nnoremap <M-Tab> :tabclose<CR>
 
-" Disable Windows specific <C-X> behavior in visual mode
-if has('win32') && !has('nvim')
-    vunmap <C-X>
-endif
-
 if has('mac')
     map ¥ <leader>
 endif
 
 " }}}
 
-"---------------------------------------------------------------------------
-" コンソール版で環境変数$DISPLAYが設定されていると起動が遅くなる件へ対応
+" Workaround for slow startup of console version when $DISPLAY is set
 if !has('gui_running') && has('xterm_clipboard')
     set clipboard=exclude:cons\\\|linux\\\|cygwin\\\|rxvt\\\|screen
 endif
 
-"---------------------------------------------------------------------------
-" プラットホーム依存の特別な設定
-
-" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+" Windows specific settings {{{
+" Add $VIM to $PATH
 if has('win32') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
     let $PATH = $VIM . ';' . $PATH
 endif
@@ -298,11 +290,8 @@ let g:quickrun_config['tex'] = {
 autocmd vimrc BufEnter *.tex call <SID>SetLaTeXMainSource()
 autocmd vimrc BufEnter *.tex nnoremap <Leader>v :call <SID>TexPdfView() <CR>
 
-" 開いているtexファイルと同じディレクトリに.latexmainファイルがあれば，
-" それに従ってコンパイルするようにする．
-" Vim-LaTeXと同様の仕様で，例えばhoge.texを開いていて，同じディレクトリに
-" main.tex.latexmainが存在するとき，hoge.texを編集中にquickrunしたとしても
-" コンパイルされるのはmain.texとなる．
+" Make *.tex.latexmain when the file is exists in the same directory of
+" current file.
 function! s:SetLaTeXMainSource()
     let l:currentFileDirectory = expand('%:p:h').'/'
     " echo currentFileDirectory
@@ -370,7 +359,7 @@ let g:eskk#auto_save_dictionary_at_exit = 1
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 "set imdisable
-" 句読点をカンマピリオドに
+" Ten, maru to comma, period
 autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
 function! s:eskk_initial_pre()
     let l:t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
