@@ -248,11 +248,6 @@ if has('win32')
     set shell=cmd.exe
 endif
 
-if has('mac')
-    " Macではデフォルトの'iskeyword'がcp932に対応しきれていないので修正
-    set iskeyword=@,48-57,_,128-167,224-235
-endif
-
 " Detect network drive (to avoid poor performance) on Windows
 function! s:set_network_drive_state()
     if has('win32')
@@ -266,16 +261,24 @@ function! s:set_network_drive_state()
 endfunction
 autocmd vimrc BufRead * call s:set_network_drive_state()
 
-"---------------------------------------------------------------------------
-" KaoriYaでバンドルしているプラグインのための設定
-
-" autofmt: 日本語文章のフォーマット(折り返し)プラグイン.
-set formatexpr=autofmt#japanese#formatexpr()
-
-" vimdoc-ja: 日本語ヘルプを無効化する.
-if has('win32') && has('kaoriya') && kaoriya#switch#enabled('disable-vimdoc-ja')
-    let &runtimepath = join(filter(split(&runtimepath, ','), 'v:val !~ "vimdoc-ja"'), ',')
+" Disable Windows specific <C-X> behavior in visual mode
+if has('win32') && !has('nvim')
+    vunmap <C-X>
 endif
+
+" Python3 dll
+if has('win32') && !has('nvim')
+    set pythonthreedll=C:\Python36\Python36.dll
+endif
+set pyxversion=3
+"}}}
+
+" Mac specific settings {{{
+if has('mac')
+    " iskeyword fix for cp932
+    set iskeyword=@,48-57,_,128-167,224-235
+endif
+"}}}
 
 " Quickrun settings
 let g:quickrun_config = {
@@ -518,12 +521,6 @@ nnoremap <Leader>db :<C-u>Denite buffer <CR>
 " ctags.exe on MSYS2 calls sort.exe, while backslashes are handled badly.
 " call denite#custom#var('outline', 'options', ['--sort=no'])
 " }}}
-
-" Python3 dll
-if has('win32') && !has('nvim')
-    set pythonthreedll=C:\Python36\Python36.dll
-endif
-set pyxversion=3
 
 " vim-emoji
 command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g | noh
