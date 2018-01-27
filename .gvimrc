@@ -44,8 +44,8 @@ set ambiwidth=double
 
 
 " Window settings {{{
-autocmd vimrc GUIEnter * set columns=120
-autocmd vimrc GUIEnter * set lines=40
+autocmd gvimrc GUIEnter * set columns=120
+autocmd gvimrc GUIEnter * set lines=40
 set cmdheight=2
 if has('kaoriya')
     autocmd GUIEnter * set transparency=240
@@ -56,7 +56,7 @@ endif
 
 " System-wide IM setting {{{
 if has('multi_byte_ime') || has('xim')
-    autocmd vimrc ColorScheme * highlight CursorIM guibg=Purple guifg=NONE
+    autocmd gvimrc ColorScheme * highlight CursorIM guibg=Purple guifg=NONE
     set iminsert=0 imsearch=0
 endif
 " }}}
