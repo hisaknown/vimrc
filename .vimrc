@@ -392,7 +392,6 @@ endfunction
 let g:lightline = {
             \ 'component': {
             \   'lineinfo': '%3l:%-2v',
-            \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
             \ },
             \ 'active': {
             \   'left': [
@@ -400,7 +399,7 @@ let g:lightline = {
             \     ['readonly', 'filename', 'modified'],
             \   ],
             \   'right': [
-            \     ['lineinfo', 'sky_color_clock'],
+            \     ['lineinfo'],
             \     ['ale_status', 'fileformat', 'fileencoding', 'filetype'],
             \   ],
             \ },
@@ -422,7 +421,6 @@ let g:lightline = {
             \ },
             \ 'component_visible_condition': {
             \   'lineinfo': '(winwidth(0) >= 70)',
-            \   'sky_color_clock': 0,
             \ },
             \ 'component_function': {
             \   'readonly': 'g:lightline.my.readonly',
@@ -432,7 +430,6 @@ let g:lightline = {
             \   'fileformat': 'g:lightline.my.fileformat',
             \ },
             \ 'component_raw': {
-            \   'sky_color_clock': 1,
             \ },
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' },
@@ -613,15 +610,6 @@ let g:tagbar_type_markdown = {
             \ },
             \ 'sort': 0,
             \ }
-" }}}
-
-" sky-color-clock settings{{{
-let g:sky_color_clock#latitude = 35
-" let g:sky_color_clock#color_stops
-let g:sky_color_clock#datetime_format = '%H:%M'
-let g:sky_color_clock#enable_emoji_icon = 1
-let g:sky_color_clock#openweathermap_api_key = '5f017fc5757873276de65e1fe91fa360'
-let g:sky_color_clock#openweathermap_city_id = '1850144'
 " }}}
 
 " Gina settings {{{
