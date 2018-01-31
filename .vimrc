@@ -568,7 +568,7 @@ autocmd vimrc BufReadPost * call timer_start(200, 'ALENetworkDriveFileSettings',
 
 " Deoplete.nvim {{{
 let g:deoplete#auto_complete_delay = 50
-let g:deoplete#auto_refresh_delay = 500
+let g:deoplete#auto_refresh_delay = 50
 " let g:deoplete#enable_refresh_always = 1
 let g:deoplete#ignore_sources = {}
 let g:deoplete#ignore_sources._ = ['tag', 'dictionary']
