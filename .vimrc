@@ -259,7 +259,7 @@ function! s:set_network_drive_state()
                     \ {'exit_cb': {job, ret -> execute('let b:file_is_nw_drive = ' . printf('%d', ret))}})
     endif
 endfunction
-autocmd vimrc BufRead * call s:set_network_drive_state()
+autocmd vimrc BufNewfile,BufRead * call s:set_network_drive_state()
 
 " Disable Windows specific <C-X> behavior in visual mode
 if has('win32') && !has('nvim')
