@@ -117,7 +117,6 @@ repo = 'roxma/nvim-yarp'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-rev = 'parallel'
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
