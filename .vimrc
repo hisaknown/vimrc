@@ -147,6 +147,7 @@ set formatoptions+=mM
 set history=1000
 set updatetime=500
 set spelllang=en,cjk
+set dictionary+=spell
 
 " Display settings
 set number
