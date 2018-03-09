@@ -572,9 +572,11 @@ function! ALENetworkDriveFileSettings(timer)
         let b:ale_lint_on_insert_leave = 1
         let b:ale_lint_on_save = 1
         let b:ale_lint_on_filetype_changed = 1
+        ALEDisableBuffer
+        ALEEnableBuffer
     endif
 endfunction
-autocmd vimrc BufReadPost * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
+autocmd vimrc BufNewFile,BufReadPost * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
 " }}}
 
 " Deoplete.nvim {{{
