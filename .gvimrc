@@ -72,6 +72,13 @@ set mousemodel=popup
 set guioptions-=T
 set guioptions-=m
 set guioptions-=e
+set guioptions-=r
+set guioptions-=L
+" }}}
+
+" Toggling scrollbar {{{
+command! ShowScrollbar set guioptions+=rL
+command! HideScrollbar set guioptions-=rL
 " }}}
 
 " Disable annoying <C-z>
