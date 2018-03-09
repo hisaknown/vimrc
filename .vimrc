@@ -454,6 +454,10 @@ function! g:lightline.my.git_branch()
         return ''
     endif
 
+    if &buftype == 'terminal'
+        return ''
+    endif
+
     let l:current_branch = gina#component#repo#branch()
     return winwidth(0) > 70 && l:current_branch != '' ? ('' . l:current_branch) : ''
 endfunction
