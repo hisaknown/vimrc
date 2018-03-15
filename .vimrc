@@ -251,7 +251,7 @@ endif
 
 " Detect network drive (to avoid poor performance) on Windows
 function! s:set_network_drive_state()
-    if has('win32')
+    if has('win32') && filereadable(expand('%'))
         if exists('b:file_is_nw_drive')
             unlet b:file_is_nw_drive
         endif
@@ -260,7 +260,7 @@ function! s:set_network_drive_state()
                     \ {'exit_cb': {job, ret -> execute('let b:file_is_nw_drive = ' . printf('%d', ret))}})
     endif
 endfunction
-autocmd vimrc BufNewfile,BufRead * call s:set_network_drive_state()
+autocmd vimrc BufEnter * call s:set_network_drive_state()
 
 " Disable Windows specific <C-X> behavior in visual mode
 if has('win32') && !has('nvim')
@@ -576,7 +576,7 @@ function! ALENetworkDriveFileSettings(timer)
         ALEEnableBuffer
     endif
 endfunction
-autocmd vimrc BufNewFile,BufReadPost * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
+autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
 " }}}
 
 " Deoplete.nvim {{{
