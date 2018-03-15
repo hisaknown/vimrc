@@ -639,6 +639,17 @@ call gina#custom#command#option('status', '--opener', &previewheight . 'split')
 call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
 " }}}
 
+" nanomap.vim {{{
+let g:nanomap_auto_realign = 1
+" Automatically open NanoMap on openingn new buffer.
+autocmd vimrc BufRead * NanoMapShow
+" Automatically close NanoMap
+" Note that this causes E855 when you attempt to :close the last buffer.
+autocmd vimrc BufWinLeave * NanoMapClose
+" Using :quit instead of :close works without error.
+autocmd vimrc QuitPre * NanoMapClose
+" }}}
+
 " Load at-office-specific settings {{{
 let $DOT_VIM_PATH = g:dotvim_path
 if filereadable(expand('$DOT_VIM_PATH/rc/atoffice.vim'))

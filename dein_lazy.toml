@@ -40,5 +40,5 @@ on_ft = ['python']
 
 [[plugins]]
 repo = 'hisaknown/nanomap.vim'
-on_cmd = ['NanoMapShow']
+on_cmd = ['NanoMapShow', 'NanoMapClose']
 
