@@ -147,3 +147,6 @@ repo = 'mopp/sky-color-clock.vim'
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'

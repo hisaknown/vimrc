@@ -1,3 +1,4 @@
+set encoding=utf-8
 scriptencoding utf-8
 filetype off            " for vundle
 
@@ -81,7 +82,6 @@ filetype plugin on
 filetype indent on
 
 " Encoding settings
-set encoding=utf-8
 set fileencodings=utf-8,euc-jp,sjis,iso-2022-jp
 
 " Plugins of kaoriya-vim

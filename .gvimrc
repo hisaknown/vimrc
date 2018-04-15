@@ -48,9 +48,11 @@ autocmd gvimrc GUIEnter * set columns=120
 autocmd gvimrc GUIEnter * set lines=40
 set cmdheight=2
 if has('kaoriya')
-    autocmd GUIEnter * set transparency=240
+    autocmd gvimrc GUIEnter * set transparency=240
     inoremap <silent> <Down> <C-o>:<C-u>set transparency+=10<CR>
     inoremap <silent> <Up> <C-o>:<C-u>set transparency-=10<CR>
+elseif has('win32')
+    autocmd gvimrc GUIEnter * VimTweakSetAlpha 240
 endif
 " }}}
 
