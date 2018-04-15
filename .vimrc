@@ -581,11 +581,11 @@ autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'
 " }}}
 
 " Deoplete.nvim {{{
-let g:deoplete#auto_complete_delay = 50
-let g:deoplete#auto_refresh_delay = 50
-" let g:deoplete#enable_refresh_always = 1
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources._ = ['tag', 'dictionary']
+call deoplete#custom#option({
+            \ 'auto_complete_delay': 50,
+            \ 'auto_refresh_delay': 50,
+            \ 'ignore_sources': {'_': ['tag', 'dictionary']},
+            \})
 let g:deoplete#sources#jedi#server_timeout = 60
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('_', 'matcher', 'matcher_full_fuzzy')
