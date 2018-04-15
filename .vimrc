@@ -419,7 +419,7 @@ let g:lightline = {
             \     ['cd', 'tabs'],
             \   ],
             \   'right': [
-            \     ['git_branch', 'close'],
+            \     ['close'],
             \   ],
             \ },
             \ 'component_visible_condition': {
