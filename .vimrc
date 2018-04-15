@@ -185,6 +185,7 @@ let &undodir = g:dotvim_path . '/tmp/undo'
 call s:mkdir_if_not_exist(&undodir)
 let &directory = g:dotvim_path . '/tmp/swap'
 call s:mkdir_if_not_exist(&directory)
+set viminfo='1000,<50,s10,h,rA:,rB:
 if has('nvim')
     set viminfo+=n~/.nviminfo
 else
