@@ -150,3 +150,6 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'hisaknown/nanomap.vim'
+
+[[plugins]]
+repo = 'lervag/vimtex'

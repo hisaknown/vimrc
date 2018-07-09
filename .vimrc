@@ -346,6 +346,24 @@ endfunction
 " let g:tex_fast = 'Mp'
 let g:tex_conceal = ''
 let g:tex_flavor = 'latex'
+
+" vimtex settings
+let g:vimtex_compiler_enabled = 0
+let g:vimtex_complete_enabled = 1
+let g:vimtex_fold_enabled = 0
+let g:vimtex_format_enabled = 0
+let g:vimtex_imaps_enabled = 0
+let g:vimtex_indent_enabled = 0
+let g:vimtex_indent_bib_enabled = 0
+let g:vimtex_mappings_enabled = 0
+let g:vimtex_matchparen_enabled = 1
+let g:vimtex_motion_enabled = 0
+let g:vimtex_labels_enabled = 0
+let g:vimtex_quickfix_enabled = 0
+let g:vimtex_syntax_enabled = 1
+let g:vimtex_text_obj_enabled = 0
+let g:vimtex_toc_enabled = 0
+let g:vimtex_view_enabled = 0
 " }}}
 
 " eskk.vim settings {{{
@@ -585,6 +603,9 @@ call deoplete#custom#option({
             \ 'auto_complete_delay': 50,
             \ 'auto_refresh_delay': 50,
             \ 'ignore_sources': {'_': ['tag', 'dictionary']},
+            \})
+call deoplete#custom#var('omni', 'input_patterns', {
+            \ 'tex': g:vimtex#re#deoplete,
             \})
 let g:deoplete#sources#jedi#server_timeout = 60
 let g:deoplete#enable_at_startup = 1
