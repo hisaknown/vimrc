@@ -66,9 +66,6 @@ repo = 'dhruvasagar/vim-table-mode'
 repo = 'thinca/vim-fontzoom'
 
 [[plugins]]
-repo = 'vim-scripts/DrawIt'
-
-[[plugins]]
 repo = 'machakann/vim-sandwich'
 
 [[plugins]]
