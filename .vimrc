@@ -563,9 +563,11 @@ let g:vim_markdown_conceal = 0
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_sign_info = ''
+let g:ale_sign_column_always = 1
 let g:ale_set_loc_list = 0
 let g:ale_lint_delay = 1000
 let g:ale_echo_delay = 500
+let g:ale_echo_msg_format = '%linter%|%code: %%s'
 
 autocmd vimrc ColorScheme * highlight ALEErrorSign ctermfg=95 guifg=#875f5f
 autocmd vimrc ColorScheme * highlight ALEWarningSign ctermfg=101 guifg=#87875f
