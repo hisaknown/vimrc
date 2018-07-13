@@ -590,7 +590,7 @@ call deoplete#custom#option({
             \})
 let g:deoplete#sources#jedi#server_timeout = 60
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#source('_', 'matcher', 'matcher_full_fuzzy')
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
 " Fancy marks
 call deoplete#custom#source('jedi', 'mark', '')
