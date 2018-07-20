@@ -153,3 +153,7 @@ repo = 'hisaknown/nanomap.vim'
 
 [[plugins]]
 repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'hisaknown/deoplete-latex'
+
