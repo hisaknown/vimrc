@@ -12,10 +12,6 @@ repo = 'hynek/vim-python-pep8-indent'
 on_ft = ['python']
 
 [[plugins]]
-repo = 'koturn/vim-replica'
-on_cmd = ['Replica', 'ReplicaInternal']
-
-[[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown']
 
@@ -23,10 +19,6 @@ on_ft = ['markdown']
 repo = 'syngan/vim-pukiwiki'
 on_cmd = ['PukiWiki']
 on_ft = ['pukiwiki']
-
-[[plugins]]
-repo = 'metakirby5/codi.vim'
-on_cmd = ['Codi', 'CodiUpdate']
 
 [[plugins]]
 repo = 'rhysd/vim-grammarous'
