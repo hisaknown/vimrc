@@ -14,6 +14,7 @@ autocmd gvimrc ColorScheme * highlight! SpecialKey guibg=#050505
 autocmd gvimrc ColorScheme * highlight! NonText guibg=#050505
 autocmd gvimrc ColorScheme * highlight! Conceal guibg=#000000 guifg=#c5c8c6
 autocmd gvimrc ColorScheme * highlight! Normal guibg=#050505
+autocmd gvimrc BufRead *.py if g:colors_name == 'iceberg' | highlight! link pythonBuiltin Statement | endif
 colorscheme iceberg
 let g:lightline['colorscheme'] = 'iceberg'
 call lightline#init()

@@ -157,3 +157,12 @@ repo = 'Shougo/neco-syntax'
 [[plugins]]
 repo = 'hisaknown/deoplete-latex'
 
+[[plugins]]
+repo = 'sts10/vim-pink-moon'
+
+[[plugins]]
+repo = 'Heorhiy/VisualStudioDark.vim'
+
+# [[plugins]]
+# repo = 'vim-python/python-syntax'
+
