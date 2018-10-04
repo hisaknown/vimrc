@@ -551,6 +551,7 @@ let g:ale_set_loc_list = 0
 let g:ale_lint_delay = 1000
 let g:ale_echo_delay = 500
 let g:ale_echo_msg_format = '%linter%|%code: %%s'
+let g:ale_use_global_executables = 1
 
 autocmd vimrc ColorScheme * highlight ALEErrorSign ctermfg=95 guifg=#875f5f
 autocmd vimrc ColorScheme * highlight ALEWarningSign ctermfg=101 guifg=#87875f
@@ -573,7 +574,7 @@ function! ALENetworkDriveFileSettings(timer)
         " They may need to be set before initializing ALE.
         let b:ale_lint_on_text_changed = 'never'
         let b:ale_lint_on_enter = 0
-        let b:ale_lint_on_insert_leave = 1
+        let b:ale_lint_on_insert_leave = 0
         let b:ale_lint_on_save = 1
         let b:ale_lint_on_filetype_changed = 1
         ALEDisableBuffer
