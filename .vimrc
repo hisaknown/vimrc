@@ -516,6 +516,7 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " Previm
+let g:previm_enable_realtime = 0
 let g:previm_show_header = 0
 
 " Denite {{{

@@ -1,9 +1,7 @@
 [[plugins]]
-repo = 'katono/rogue.vim'
-
-[[plugins]]
-repo = 'kannokanno/previm'
+repo = 'previm/previm'
 on_ft = ['markdown']
+on_cmd = ['PrevimOpen']
 
 [[plugins]]
 repo = 'thinca/vim-showtime'
