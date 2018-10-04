@@ -361,7 +361,7 @@ if has('unix')
     let g:eskk#large_dictionary = {
                 \'path':'~/SKK-JISYO.L',
                 \'sorted':1,
-                \'encoding':'utf-8',
+                \'encoding':'euc-jp',
                 \}
     set imdisable
 endif
@@ -587,9 +587,8 @@ autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'
 call deoplete#custom#option({
             \ 'auto_complete_delay': 50,
             \ 'auto_refresh_delay': 50,
-            \ 'ignore_sources': {'_': ['tag', 'dictionary']},
+            \ 'ignore_sources': {'_': ['tag', 'dictionary', 'eskk']},
             \})
-let g:deoplete#sources#jedi#server_timeout = 60
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
