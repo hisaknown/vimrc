@@ -23,21 +23,21 @@ call lightline#init()
 " Fonts {{{
 if has('win32')
     set encoding=utf-8
-    set guifont=CicaMod:h12
+    set guifont=CicaMod2:h12
     set renderoptions=type:directx,renmode:5
     " cmd uses cp932
     set termencoding=cp932
 endif
 if has('unix')
-    set guifont=CicaMod\ 13
-    set guifontwide=CicaMod\ 13
+    set guifont=CicaMod2\ 13
+    set guifontwide=CicaMod2\ 13
     if system('cat /etc/issue') =~ 'Arch'
-        set guifont=CicaMod\ 13
-        set guifontwide=CicaMod\ 13
+        set guifont=CicaMod2\ 13
+        set guifontwide=CicaMod2\ 13
     endif
 endif
 if has('mac')
-    set guifont=CicaMod:h14
+    set guifont=CicaMod2:h14
 endif
 
 set ambiwidth=double
