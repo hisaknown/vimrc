@@ -53,7 +53,10 @@ if has('kaoriya')
     inoremap <silent> <Down> <C-o>:<C-u>set transparency+=10<CR>
     inoremap <silent> <Up> <C-o>:<C-u>set transparency-=10<CR>
 elseif has('win32')
-    autocmd gvimrc GUIEnter * VimTweakSetAlpha 240
+    let g:vimtweak_alpha = 200
+    autocmd gvimrc GUIEnter * VimTweakSetAlpha g:vimtweak_alpha
+    inoremap <silent> <Down> <C-o>:<C-u>let g:vimtweak_alpha = min([255, g:vimtweak_alpha + 10]) \| VimTweakSetAlpha g:vimtweak_alpha <CR>
+    inoremap <silent> <Up> <C-o>:<C-u>let g:vimtweak_alpha = max([0, g:vimtweak_alpha - 10]) \| VimTweakSetAlpha g:vimtweak_alpha <CR>
 endif
 " }}}
 
