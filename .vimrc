@@ -168,13 +168,21 @@ set scrolloff=3
 set showtabline=2
 set foldtext=''.foldtext()[1:]
 set foldmethod=marker
+if has('unix')
+    language ja_JP.UTF-8
+endif
 
 syntax enable
 
-colorscheme iceberg
-
 " Transparent background on terminal
-autocmd vimrc ColorScheme * highlight Normal ctermbg=none
+autocmd vimrc ColorScheme * highlight! Normal ctermbg=NONE
+autocmd vimrc ColorScheme * highlight! EndOfBuffer ctermbg=NONE
+if has('termguicolors') && !has('gui_running')
+    autocmd vimrc ColorScheme * highlight! Normal guibg=NONE
+    autocmd vimrc ColorScheme * highlight! EndOfBuffer guibg=NONE
+endif
+
+colorscheme iceberg
 
 " Misc. file settings
 set backup
@@ -359,7 +367,7 @@ endif
 if has('unix')
     " UTF-8版を用意しないとだめっぽい？
     let g:eskk#large_dictionary = {
-                \'path':'~/SKK-JISYO.L',
+                \'path':'/usr/share/skk/SKK-JISYO.L',
                 \'sorted':1,
                 \'encoding':'euc-jp',
                 \}

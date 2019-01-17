@@ -29,11 +29,11 @@ if has('win32')
     set termencoding=cp932
 endif
 if has('unix')
-    set guifont=CicaMod2\ 13
-    set guifontwide=CicaMod2\ 13
+    set guifont=CicaMod2\ 12
+    set guifontwide=CicaMod2\ 12
     if system('cat /etc/issue') =~ 'Arch'
-        set guifont=CicaMod2\ 13
-        set guifontwide=CicaMod2\ 13
+        set guifont=CicaMod2\ 12
+        set guifontwide=CicaMod2\ 12
     endif
 endif
 if has('mac')
