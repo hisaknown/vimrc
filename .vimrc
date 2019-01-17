@@ -321,9 +321,10 @@ function! s:SetLaTeXMainSource()
     let l:currentFileDirectory = expand('%:p:h').'/'
     " echo currentFileDirectory
     let l:latexmain = glob(l:currentFileDirectory.'*.latexmain')
-    let g:quickrun_config['tex']['srcfile'] = fnamemodify(l:latexmain, ':r') . '.tex'
     if l:latexmain == ''
-        unlet g:quickrun_config['tex']['srcfile']
+        let g:quickrun_config['tex']['srcfile'] = expand('%')
+    else
+        let g:quickrun_config['tex']['srcfile'] = fnamemodify(l:latexmain, ':r') . '.tex'
     endif
 endfunction
 function! s:TexPdfView()
@@ -336,20 +337,21 @@ function! s:TexPdfView()
                     \             '"C:\Program Files\SumatraPDF\SumatraPDF.exe" -reuse-instance '.
                     \             '-inverse-search ""'.$VIM.'\gvim.exe'.'" -n --remote-silent +\%l \"\%f\"" '.
                     \             l:texPdfFilename
+        execute g:TexPdfViewCommand
     endif
     if has('unix')
-        let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
-                    \             'evince '.
-                    \             l:texPdfFilename.
-                    \             '")'
+        call job_start('zathura ' .
+                    \ '-x "gvim -n --remote-silent +\%{line} \"\%{input}\"" ' .
+                    \ '--synctex-forward "' . string(getcurpos()[1]) . ':' . string(getcurpos()[2]) . ':' . expand('%') . '" ' .
+                    \ l:texPdfFilename)
     endif
     if has('mac')
         let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
                     \             'open -a Skim.app '.
                     \             l:texPdfFilename.
                     \             '")'
+        execute g:TexPdfViewCommand
     endif
-    execute g:TexPdfViewCommand
 endfunction
 " let g:tex_fast = 'Mp'
 let g:tex_conceal = ''
