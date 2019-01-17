@@ -596,19 +596,22 @@ autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'
 
 " Deoplete.nvim {{{
 call deoplete#custom#option({
-            \ 'auto_complete_delay': 50,
-            \ 'auto_refresh_delay': 50,
-            \ 'ignore_sources': {'_': ['tag', 'dictionary', 'eskk']},
+            \ 'auto_complete_delay': 0,
+            \ 'auto_refresh_delay': 20,
+            \ 'ignore_sources': {'_': ['tag', 'dictionary']},
             \})
-let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+call deoplete#custom#source('eskk', 'matchers', [])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
+call deoplete#custom#source('tabnine', 'rank', 0)
 " Fancy marks
 call deoplete#custom#source('jedi', 'mark', '')
 call deoplete#custom#source('file', 'mark', '')
 call deoplete#custom#source('buffer', 'mark', '')
 call deoplete#custom#source('eskk', 'mark', '▽')
-"call deoplete#enable()
+let g:deoplete#enable_at_startup = 0
+let g:deoplete#sources#jedi#ignore_errors = 1  " Temporary
+autocmd vimrc InsertEnter * call deoplete#enable()
 " }}}
 
 " Echodoc
