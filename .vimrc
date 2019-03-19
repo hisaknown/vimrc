@@ -428,10 +428,10 @@ let g:lightline = {
             \ },
             \ 'tabline': {
             \   'left': [
-            \     ['cd', 'tabs'],
+            \     ['tabs'],
             \   ],
             \   'right': [
-            \     ['close'],
+            \     ['cd', 'close'],
             \   ],
             \ },
             \ 'component_visible_condition': {
