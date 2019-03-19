@@ -163,6 +163,14 @@ repo = 'sts10/vim-pink-moon'
 [[plugins]]
 repo = 'Heorhiy/VisualStudioDark.vim'
 
-# [[plugins]]
-# repo = 'vim-python/python-syntax'
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
 
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
+
+[[plugins]]
+repo = 'hisaknown/jupyterkernel.vim'

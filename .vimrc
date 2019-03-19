@@ -596,6 +596,32 @@ endfunction
 autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
 " }}}
 
+" vim-lsp {{{
+" Use ALE for diagnostics instead
+let g:lsp_diagnostics_enabled = 0
+if executable('pyls')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'pyls',
+                \ 'cmd': {server_info->['pyls']},
+                \ 'whitelist': ['python'],
+                \ })
+endif
+if executable('texlab')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'texlab',
+                \ 'cmd': {server_info->['texlab']},
+                \ 'whitelist': ['tex'],
+                \ })
+endif
+if executable('docker-langserver')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'docker-langserver',
+                \ 'cmd': {server_info->['docker-langserver']},
+                \ 'whitelist': ['dockerfile'],
+                \ })
+endif
+" }}}
+
 " Deoplete.nvim {{{
 call deoplete#custom#option({
             \ 'auto_complete_delay': 0,
@@ -605,7 +631,6 @@ call deoplete#custom#option({
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('eskk', 'matchers', [])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
-call deoplete#custom#source('tabnine', 'rank', 0)
 " Fancy marks
 call deoplete#custom#source('jedi', 'mark', '')
 call deoplete#custom#source('file', 'mark', '')
