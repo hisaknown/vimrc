@@ -649,6 +649,12 @@ let g:nanomap_auto_realign = 1
 let g:nanomap_auto_open_close = 1
 " }}}
 
+" OmniSharp {{{
+let g:OmniSharp_timeout = 10000
+let g:OmniSharp_start_server = 1
+autocmd vimrc BufWinEnter *.cs call timer_start(500, {_ -> OmniSharp#RestartServer()})
+" }}}
+
 " Load at-office-specific settings {{{
 let $DOT_VIM_PATH = g:dotvim_path
 if filereadable(expand('$DOT_VIM_PATH/rc/atoffice.vim'))
