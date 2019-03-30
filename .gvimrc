@@ -29,11 +29,11 @@ if has('win32')
     set termencoding=cp932
 endif
 if has('unix')
-    set guifont=CicaMod2\ 13
-    set guifontwide=CicaMod2\ 13
+    set guifont=CicaMod2\ 12
+    set guifontwide=CicaMod2\ 12
     if system('cat /etc/issue') =~ 'Arch'
-        set guifont=CicaMod2\ 13
-        set guifontwide=CicaMod2\ 13
+        set guifont=CicaMod2\ 12
+        set guifontwide=CicaMod2\ 12
     endif
 endif
 if has('mac')
@@ -45,8 +45,12 @@ set ambiwidth=double
 
 
 " Window settings {{{
-autocmd gvimrc GUIEnter * set columns=120
-autocmd gvimrc GUIEnter * set lines=40
+if has('win32')
+    autocmd gvimrc GUIEnter * set columns=120
+    autocmd gvimrc GUIEnter * set lines=40
+endif
+set columns=120
+set lines=40
 set cmdheight=2
 if has('kaoriya')
     autocmd gvimrc GUIEnter * set transparency=240

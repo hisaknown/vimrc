@@ -164,17 +164,27 @@ set conceallevel=2 concealcursor=""
 set t_Co=256
 set background=dark
 set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum""]]
 set scrolloff=3
 set showtabline=2
 set foldtext=''.foldtext()[1:]
 set foldmethod=marker
+if has('unix')
+    language ja_JP.UTF-8
+endif
 
 syntax enable
 
-colorscheme iceberg
-
 " Transparent background on terminal
-autocmd vimrc ColorScheme * highlight Normal ctermbg=none
+autocmd vimrc ColorScheme * highlight! Normal ctermbg=NONE
+autocmd vimrc ColorScheme * highlight! EndOfBuffer ctermbg=NONE
+if has('termguicolors') && !has('gui_running')
+    autocmd vimrc ColorScheme * highlight! Normal guibg=NONE
+    autocmd vimrc ColorScheme * highlight! EndOfBuffer guibg=NONE
+endif
+
+colorscheme iceberg
 
 " Misc. file settings
 set backup
@@ -215,7 +225,7 @@ nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 nnoremap sH <C-w>H
-nnoremap sr <C-w>r
+" Leave for sandwitch" nnoremap sr <C-w>r
 nnoremap s= <C-w>=
 nnoremap sw <C-w>w
 nnoremap so <C-w>o
@@ -313,9 +323,10 @@ function! s:SetLaTeXMainSource()
     let l:currentFileDirectory = expand('%:p:h').'/'
     " echo currentFileDirectory
     let l:latexmain = glob(l:currentFileDirectory.'*.latexmain')
-    let g:quickrun_config['tex']['srcfile'] = fnamemodify(l:latexmain, ':r') . '.tex'
     if l:latexmain == ''
-        unlet g:quickrun_config['tex']['srcfile']
+        let g:quickrun_config['tex']['srcfile'] = expand('%')
+    else
+        let g:quickrun_config['tex']['srcfile'] = fnamemodify(l:latexmain, ':r') . '.tex'
     endif
 endfunction
 function! s:TexPdfView()
@@ -328,20 +339,21 @@ function! s:TexPdfView()
                     \             '"C:\Program Files\SumatraPDF\SumatraPDF.exe" -reuse-instance '.
                     \             '-inverse-search ""'.$VIM.'\gvim.exe'.'" -n --remote-silent +\%l \"\%f\"" '.
                     \             l:texPdfFilename
+        execute g:TexPdfViewCommand
     endif
     if has('unix')
-        let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
-                    \             'evince '.
-                    \             l:texPdfFilename.
-                    \             '")'
+        call job_start('zathura ' .
+                    \ '-x "gvim -n --remote-silent +\%{line} \"\%{input}\"" ' .
+                    \ '--synctex-forward "' . string(getcurpos()[1]) . ':' . string(getcurpos()[2]) . ':' . expand('%') . '" ' .
+                    \ l:texPdfFilename)
     endif
     if has('mac')
         let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
                     \             'open -a Skim.app '.
                     \             l:texPdfFilename.
                     \             '")'
+        execute g:TexPdfViewCommand
     endif
-    execute g:TexPdfViewCommand
 endfunction
 " let g:tex_fast = 'Mp'
 let g:tex_conceal = ''
@@ -359,7 +371,7 @@ endif
 if has('unix')
     " UTF-8版を用意しないとだめっぽい？
     let g:eskk#large_dictionary = {
-                \'path':'~/SKK-JISYO.L',
+                \'path':'/usr/share/skk/SKK-JISYO.L',
                 \'sorted':1,
                 \'encoding':'euc-jp',
                 \}
@@ -416,10 +428,10 @@ let g:lightline = {
             \ },
             \ 'tabline': {
             \   'left': [
-            \     ['cd', 'tabs'],
+            \     ['tabs'],
             \   ],
             \   'right': [
-            \     ['close'],
+            \     ['cd', 'close'],
             \   ],
             \ },
             \ 'component_visible_condition': {
@@ -584,21 +596,49 @@ endfunction
 autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
 " }}}
 
+" vim-lsp {{{
+" Use ALE for diagnostics instead
+let g:lsp_diagnostics_enabled = 0
+if executable('pyls')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'pyls',
+                \ 'cmd': {server_info->['pyls']},
+                \ 'whitelist': ['python'],
+                \ })
+endif
+if executable('texlab')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'texlab',
+                \ 'cmd': {server_info->['texlab']},
+                \ 'whitelist': ['tex'],
+                \ })
+endif
+if executable('docker-langserver')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'docker-langserver',
+                \ 'cmd': {server_info->['docker-langserver']},
+                \ 'whitelist': ['dockerfile'],
+                \ })
+endif
+" }}}
+
 " Deoplete.nvim {{{
 call deoplete#custom#option({
-            \ 'auto_complete_delay': 50,
-            \ 'auto_refresh_delay': 50,
-            \ 'ignore_sources': {'_': ['tag', 'dictionary', 'eskk']},
+            \ 'auto_complete_delay': 0,
+            \ 'auto_refresh_delay': 20,
+            \ 'ignore_sources': {'_': ['tag', 'dictionary']},
             \})
-let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+call deoplete#custom#source('eskk', 'matchers', [])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
 " Fancy marks
 call deoplete#custom#source('jedi', 'mark', '')
 call deoplete#custom#source('file', 'mark', '')
 call deoplete#custom#source('buffer', 'mark', '')
 call deoplete#custom#source('eskk', 'mark', '▽')
-"call deoplete#enable()
+let g:deoplete#enable_at_startup = 0
+let g:deoplete#sources#jedi#ignore_errors = 1  " Temporary
+autocmd vimrc InsertEnter * call deoplete#enable()
 " }}}
 
 " Echodoc
