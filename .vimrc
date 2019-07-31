@@ -308,10 +308,9 @@ let g:quickrun_config['markdown'] = {
 " TeX and quickrun settings {{{
 let g:quickrun_config['tex'] = {
             \   'command' : 'latexmk',
-            \   'cmdopt': '-pdfdvi',
             \   'outputter': 'quickfix',
             \   'quickfix/errorformat' : '\%A! \%m,\%Zl\%.\%l \%m,\%-G\%.\%#',
-            \   'exec': ['%c %o %s', '%c -c %s'],
+            \   'exec': ['%c %s', '%c -c %s'],
             \   'runner/read_timeout': 10,
             \ }
 
