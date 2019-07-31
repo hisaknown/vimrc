@@ -159,6 +159,7 @@ set breakindent
 set laststatus=2
 set cmdheight=2
 set showcmd
+set shortmess-=S
 set title
 set conceallevel=2 concealcursor=""
 set t_Co=256
@@ -211,7 +212,7 @@ autocmd vimrc BufReadPost *
 autocmd vimrc BufEnter * silent! lcd %:p:h
 
 " Completion settings
-set completeopt=menuone
+set completeopt=menuone,noselect
 set pumheight=10
 
 " Key bindings {{{
