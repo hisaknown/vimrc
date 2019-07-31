@@ -532,8 +532,8 @@ let g:previm_enable_realtime = 0
 let g:previm_show_header = 0
 
 " Denite {{{
-nnoremap <Leader>df :<C-u>Denite file_rec <CR>
-nnoremap <Leader>do :<C-u>Denite file_old <CR>
+nnoremap <Leader>df :<C-u>Denite file/rec <CR>
+nnoremap <Leader>do :<C-u>Denite file/old <CR>
 nnoremap <Leader>da :<C-u>Denite ale <CR>
 nnoremap <Leader>db :<C-u>Denite buffer <CR>
 
@@ -542,6 +542,16 @@ if has('win32')
     " ctags.exe on MSYS2 calls sort.exe, while backslashes are handled badly.
     " call denite#custom#var('outline', 'options', ['--sort=no'])
 endif
+
+autocmd vimrc FileType denite call s:denite_settings()
+function! s:denite_settings() abort
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+endfunction
 " }}}
 
 " vim-emoji
