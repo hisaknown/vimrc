@@ -308,7 +308,7 @@ let g:quickrun_config['tex'] = {
             \   'command' : 'latexmk',
             \   'outputter': 'quickfix',
             \   'quickfix/errorformat' : '\%A! \%m,\%Zl\%.\%l \%m,\%-G\%.\%#',
-            \   'exec': ['%c %s', '%c -c %s'],
+            \   'exec': ['%c %s'],
             \   'runner/read_timeout': 10,
             \ }
 
@@ -345,13 +345,13 @@ function! s:TexPdfView()
                     \ '--synctex-forward "' . string(getcurpos()[1]) . ':' . string(getcurpos()[2]) . ':' . expand('%') . '" ' .
                     \ l:texPdfFilename)
     endif
-    if has('mac')
-        let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
-                    \             'open -a Skim.app '.
-                    \             l:texPdfFilename.
-                    \             '")'
-        execute g:TexPdfViewCommand
-    endif
+    " if has('mac')
+    "     let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
+    "                 \             'open -a Skim.app '.
+    "                 \             l:texPdfFilename.
+    "                 \             '")'
+    "     execute g:TexPdfViewCommand
+    " endif
 endfunction
 " let g:tex_fast = 'Mp'
 let g:tex_conceal = ''
