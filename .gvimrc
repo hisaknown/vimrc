@@ -6,7 +6,6 @@ augroup gvimrc
 augroup END
 
 " Colors {{{
-set hlsearch
 set background=dark
 syntax enable
 

@@ -2,16 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-
-  [plugins.build]
-  #windows = 'tools\\update-dll-mingw.bat 64'
-  cygwin  = 'make -f make_cygwin.mak'
-  mac     = 'make -f make_mac.mak'
-  linux   = 'make'
-  unix    = 'gmake'
-
-[[plugins]]
 repo = 'Shougo/unite.vim'
 
 [[plugins]]

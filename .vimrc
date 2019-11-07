@@ -1,9 +1,6 @@
 set encoding=utf-8
 scriptencoding utf-8
-filetype off            " for vundle
-
-" Download vimproc dll on Windows
-let g:vimproc#download_windows_dll = 1
+filetype off
 
 " dotvim path setting
 if has('win32') || has('win32unix')
@@ -58,8 +55,6 @@ if dein#check_install()
     call dein#install()
 endif
 
-" Add vimproc library path to runtimepath
-execute 'set runtimepath^=' . s:dein_dir . 'repos/github.com/Shougo/vimproc.vim'
 " }}}
 
 " Mkdir if the directory does not exist
@@ -131,6 +126,7 @@ set ignorecase
 set smartcase
 set incsearch
 set wrapscan
+set hlsearch
 
 " Tab and indent settings
 set tabstop=4
@@ -151,6 +147,8 @@ set dictionary+=spell
 
 " Display settings
 set number
+set cursorline
+set cursorlineopt=number
 set ruler
 set list
 set listchars=tab:»\ ,extends:<,trail:-,eol:«
@@ -200,7 +198,7 @@ set viminfo='1000,<50,s10,h,rA:,rB:
 if has('nvim')
     set viminfo+=n~/.nviminfo
 else
-    set viminfo+=n~/.viminfo
+    set viminfo+=n~/.vim/rc/.viminfo
 endif
 
 " Resume cursor position
@@ -412,10 +410,11 @@ let g:lightline = {
             \   'left': [
             \     ['mode', 'paste'],
             \     ['readonly', 'filename', 'modified'],
+            \     ['word_count'],
             \   ],
             \   'right': [
             \     ['lineinfo', 'sky_color_clock'],
-            \     ['ale_status', 'fileformat', 'fileencoding', 'filetype'],
+            \     ['fileformat', 'fileencoding', 'filetype'],
             \   ],
             \ },
             \ 'inactive': {
@@ -440,8 +439,6 @@ let g:lightline = {
             \ },
             \ 'component_function': {
             \   'readonly': 'g:lightline.my.readonly',
-            \   'git_branch': 'g:lightline.my.git_branch',
-            \   'ale_status': 'g:lightline.my.ale_status',
             \   'filetype': 'g:lightline.my.filetype',
             \   'fileformat': 'g:lightline.my.fileformat',
             \ },
@@ -459,27 +456,6 @@ let g:lightline.my = {}
 function! g:lightline.my.readonly()
     return &readonly ? '' : ''
 endfunction
-function! g:lightline.my.git_branch()
-    " On windows, obtaining git status can be slow when the file is on a
-    " network drive. So, if the file is confirmed to be on a network drive,
-    " we don't try to get the status anymore.
-    if exists('b:file_is_nw_drive') && b:file_is_nw_drive == 0
-        return ''
-    endif
-
-    if &buftype == 'terminal'
-        return ''
-    endif
-
-    let l:current_branch = gina#component#repo#branch()
-    return winwidth(0) > 70 && l:current_branch != '' ? ('' . l:current_branch) : ''
-endfunction
-function! g:lightline.my.ale_status()
-    let l:ale_status = ale#statusline#Count(bufnr(''))
-    return l:ale_status.total == 0 ? '' :
-                \'' . l:ale_status.error . '/' . l:ale_status.style_error .
-                \'' . l:ale_status.warning . '/' . l:ale_status.style_warning
-endfunction
 function! g:lightline.my.filetype()
     let l:dev_icon = WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > 70 ? (strlen(&filetype) ? (strlen(l:dev_icon) ? WebDevIconsGetFileTypeSymbol() : &filetype) : 'no ft') : ''
@@ -488,6 +464,7 @@ function! g:lightline.my.fileformat()
     return winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 let g:lightline.component.cd = '%{fnamemodify(getcwd(), ":~")}'
+let g:lightline.component.word_count = '%{(mode() == ''v''? wordcount()[''visual_chars''] . ''/'' . wordcount()[''chars''] : wordcount()[''chars'']) . '' chars''}'
 set noshowmode
 " }}}
 
@@ -528,7 +505,7 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " Previm
-let g:previm_enable_realtime = 0
+let g:previm_enable_realtime = 1
 let g:previm_show_header = 0
 
 " Denite {{{
@@ -597,7 +574,7 @@ endif
 " Deoplete.nvim {{{
 call deoplete#custom#option({
             \ 'auto_complete_delay': 0,
-            \ 'auto_refresh_delay': 20,
+            \ 'auto_refresh_delay': 100,
             \ 'ignore_sources': {'_': ['tag', 'dictionary']},
             \})
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
