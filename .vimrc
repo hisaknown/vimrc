@@ -534,7 +534,6 @@ let g:previm_show_header = 0
 " Denite {{{
 nnoremap <Leader>df :<C-u>Denite file/rec <CR>
 nnoremap <Leader>do :<C-u>Denite file/old <CR>
-nnoremap <Leader>da :<C-u>Denite ale <CR>
 nnoremap <Leader>db :<C-u>Denite buffer <CR>
 
 if has('win32')
@@ -565,51 +564,13 @@ let g:vim_markdown_conceal_code_blocks = 0
 " vim-grammarous
 " let g:grammarous#use_vim_spelllang = 1
 
-" ALE settings {{{
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_sign_info = ''
-let g:ale_sign_column_always = 1
-let g:ale_set_loc_list = 0
-let g:ale_lint_delay = 1000
-let g:ale_echo_delay = 500
-let g:ale_echo_msg_format = '%linter%|%code: %%s'
-let g:ale_use_global_executables = 1
-
-autocmd vimrc ColorScheme * highlight ALEErrorSign ctermfg=95 guifg=#875f5f
-autocmd vimrc ColorScheme * highlight ALEWarningSign ctermfg=101 guifg=#87875f
-autocmd vimrc ColorScheme * highlight ALEInfoSign ctermfg=24 guifg=#005f87
-autocmd vimrc ColorScheme * highlight ALEStyleWarningSign ctermfg=101 guifg=#87875f
-autocmd vimrc ColorScheme * highlight ALEStyleInfoSign ctermfg=24 guifg=#005f87
-" Turn style errors in flake8 into style warnings.
-let g:ale_type_map = {'flake8': {'ES': 'WS'}}
-
-function! ALENetworkDriveFileSettings(timer)
-    if !has('win32')
-        call timer_stop(a:timer)
-        return
-    endif
-    if exists('b:file_is_nw_drive')
-        call timer_stop(a:timer)
-    endif
-    if exists('b:file_is_nw_drive') && b:file_is_nw_drive == 0
-        " These settings may not be applied...
-        " They may need to be set before initializing ALE.
-        let b:ale_lint_on_text_changed = 'never'
-        let b:ale_lint_on_enter = 0
-        let b:ale_lint_on_insert_leave = 0
-        let b:ale_lint_on_save = 1
-        let b:ale_lint_on_filetype_changed = 1
-        ALEDisableBuffer
-        ALEEnableBuffer
-    endif
-endfunction
-autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
-" }}}
-
 " vim-lsp {{{
-" Use ALE for diagnostics instead
-let g:lsp_diagnostics_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_highlight_references_enabled = 0  " Use brightest.vim instead
+highlight link LspErrorHighlight SpellBad
+highlight link LspWarningHighlight SpellCap
+highlight link LspInofrmationHighlight SpellRare
+highlight link LspHintHighlight SpellRare
 if executable('pyls')
     autocmd vimrc User lsp_setup call lsp#register_server({
                 \ 'name': 'pyls',

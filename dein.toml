@@ -107,9 +107,6 @@ repo = 'NLKNguyen/papercolor-theme'
 repo = 'thomd/vim-wasabi-colorscheme'
 
 [[plugins]]
-repo = 'w0rp/ale'
-
-[[plugins]]
 repo = 'roxma/nvim-yarp'
 
 [[plugins]]
