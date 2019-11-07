@@ -562,6 +562,13 @@ if executable('texlab')
                 \ 'whitelist': ['tex'],
                 \ })
 endif
+if executable('efm-langserver')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'efm-langserver',
+                \ 'cmd': {server_info->['efm-langserver', '-log', '/home/yasutomi/efm.log']},
+                \ 'whitelist': ['vim', 'markdown', 'yaml'],
+                \ })
+endif
 if executable('docker-langserver')
     autocmd vimrc User lsp_setup call lsp#register_server({
                 \ 'name': 'docker-langserver',
