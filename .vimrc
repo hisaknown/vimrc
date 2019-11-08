@@ -1,9 +1,6 @@
 set encoding=utf-8
 scriptencoding utf-8
-filetype off            " for vundle
-
-" Download vimproc dll on Windows
-let g:vimproc#download_windows_dll = 1
+filetype off
 
 " dotvim path setting
 if has('win32') || has('win32unix')
@@ -58,8 +55,6 @@ if dein#check_install()
     call dein#install()
 endif
 
-" Add vimproc library path to runtimepath
-execute 'set runtimepath^=' . s:dein_dir . 'repos/github.com/Shougo/vimproc.vim'
 " }}}
 
 " Mkdir if the directory does not exist
@@ -131,6 +126,7 @@ set ignorecase
 set smartcase
 set incsearch
 set wrapscan
+set hlsearch
 
 " Tab and indent settings
 set tabstop=4
@@ -151,6 +147,8 @@ set dictionary+=spell
 
 " Display settings
 set number
+set cursorline
+set cursorlineopt=number
 set ruler
 set list
 set listchars=tab:»\ ,extends:<,trail:-,eol:«
@@ -200,7 +198,7 @@ set viminfo='1000,<50,s10,h,rA:,rB:
 if has('nvim')
     set viminfo+=n~/.nviminfo
 else
-    set viminfo+=n~/.viminfo
+    set viminfo+=n~/.vim/rc/.viminfo
 endif
 
 " Resume cursor position
@@ -310,7 +308,7 @@ let g:quickrun_config['tex'] = {
             \   'command' : 'latexmk',
             \   'outputter': 'quickfix',
             \   'quickfix/errorformat' : '\%A! \%m,\%Zl\%.\%l \%m,\%-G\%.\%#',
-            \   'exec': ['%c %s', '%c -c %s'],
+            \   'exec': ['%c %s'],
             \   'runner/read_timeout': 10,
             \ }
 
@@ -347,13 +345,13 @@ function! s:TexPdfView()
                     \ '--synctex-forward "' . string(getcurpos()[1]) . ':' . string(getcurpos()[2]) . ':' . expand('%') . '" ' .
                     \ l:texPdfFilename)
     endif
-    if has('mac')
-        let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
-                    \             'open -a Skim.app '.
-                    \             l:texPdfFilename.
-                    \             '")'
-        execute g:TexPdfViewCommand
-    endif
+    " if has('mac')
+    "     let g:TexPdfViewCommand = 'call vimproc#system_bg("'.
+    "                 \             'open -a Skim.app '.
+    "                 \             l:texPdfFilename.
+    "                 \             '")'
+    "     execute g:TexPdfViewCommand
+    " endif
 endfunction
 " let g:tex_fast = 'Mp'
 let g:tex_conceal = ''
@@ -412,10 +410,11 @@ let g:lightline = {
             \   'left': [
             \     ['mode', 'paste'],
             \     ['readonly', 'filename', 'modified'],
+            \     ['word_count'],
             \   ],
             \   'right': [
             \     ['lineinfo', 'sky_color_clock'],
-            \     ['ale_status', 'fileformat', 'fileencoding', 'filetype'],
+            \     ['fileformat', 'fileencoding', 'filetype'],
             \   ],
             \ },
             \ 'inactive': {
@@ -440,8 +439,6 @@ let g:lightline = {
             \ },
             \ 'component_function': {
             \   'readonly': 'g:lightline.my.readonly',
-            \   'git_branch': 'g:lightline.my.git_branch',
-            \   'ale_status': 'g:lightline.my.ale_status',
             \   'filetype': 'g:lightline.my.filetype',
             \   'fileformat': 'g:lightline.my.fileformat',
             \ },
@@ -459,27 +456,6 @@ let g:lightline.my = {}
 function! g:lightline.my.readonly()
     return &readonly ? '' : ''
 endfunction
-function! g:lightline.my.git_branch()
-    " On windows, obtaining git status can be slow when the file is on a
-    " network drive. So, if the file is confirmed to be on a network drive,
-    " we don't try to get the status anymore.
-    if exists('b:file_is_nw_drive') && b:file_is_nw_drive == 0
-        return ''
-    endif
-
-    if &buftype == 'terminal'
-        return ''
-    endif
-
-    let l:current_branch = gina#component#repo#branch()
-    return winwidth(0) > 70 && l:current_branch != '' ? ('' . l:current_branch) : ''
-endfunction
-function! g:lightline.my.ale_status()
-    let l:ale_status = ale#statusline#Count(bufnr(''))
-    return l:ale_status.total == 0 ? '' :
-                \'' . l:ale_status.error . '/' . l:ale_status.style_error .
-                \'' . l:ale_status.warning . '/' . l:ale_status.style_warning
-endfunction
 function! g:lightline.my.filetype()
     let l:dev_icon = WebDevIconsGetFileTypeSymbol()
     return winwidth(0) > 70 ? (strlen(&filetype) ? (strlen(l:dev_icon) ? WebDevIconsGetFileTypeSymbol() : &filetype) : 'no ft') : ''
@@ -488,6 +464,7 @@ function! g:lightline.my.fileformat()
     return winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 let g:lightline.component.cd = '%{fnamemodify(getcwd(), ":~")}'
+let g:lightline.component.word_count = '%{(mode() == ''v''? wordcount()[''visual_chars''] . ''/'' . wordcount()[''chars''] : wordcount()[''chars'']) . '' chars''}'
 set noshowmode
 " }}}
 
@@ -528,13 +505,12 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " Previm
-let g:previm_enable_realtime = 0
+let g:previm_enable_realtime = 1
 let g:previm_show_header = 0
 
 " Denite {{{
 nnoremap <Leader>df :<C-u>Denite file/rec <CR>
 nnoremap <Leader>do :<C-u>Denite file/old <CR>
-nnoremap <Leader>da :<C-u>Denite ale <CR>
 nnoremap <Leader>db :<C-u>Denite buffer <CR>
 
 if has('win32')
@@ -565,51 +541,13 @@ let g:vim_markdown_conceal_code_blocks = 0
 " vim-grammarous
 " let g:grammarous#use_vim_spelllang = 1
 
-" ALE settings {{{
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_sign_info = ''
-let g:ale_sign_column_always = 1
-let g:ale_set_loc_list = 0
-let g:ale_lint_delay = 1000
-let g:ale_echo_delay = 500
-let g:ale_echo_msg_format = '%linter%|%code: %%s'
-let g:ale_use_global_executables = 1
-
-autocmd vimrc ColorScheme * highlight ALEErrorSign ctermfg=95 guifg=#875f5f
-autocmd vimrc ColorScheme * highlight ALEWarningSign ctermfg=101 guifg=#87875f
-autocmd vimrc ColorScheme * highlight ALEInfoSign ctermfg=24 guifg=#005f87
-autocmd vimrc ColorScheme * highlight ALEStyleWarningSign ctermfg=101 guifg=#87875f
-autocmd vimrc ColorScheme * highlight ALEStyleInfoSign ctermfg=24 guifg=#005f87
-" Turn style errors in flake8 into style warnings.
-let g:ale_type_map = {'flake8': {'ES': 'WS'}}
-
-function! ALENetworkDriveFileSettings(timer)
-    if !has('win32')
-        call timer_stop(a:timer)
-        return
-    endif
-    if exists('b:file_is_nw_drive')
-        call timer_stop(a:timer)
-    endif
-    if exists('b:file_is_nw_drive') && b:file_is_nw_drive == 0
-        " These settings may not be applied...
-        " They may need to be set before initializing ALE.
-        let b:ale_lint_on_text_changed = 'never'
-        let b:ale_lint_on_enter = 0
-        let b:ale_lint_on_insert_leave = 0
-        let b:ale_lint_on_save = 1
-        let b:ale_lint_on_filetype_changed = 1
-        ALEDisableBuffer
-        ALEEnableBuffer
-    endif
-endfunction
-autocmd vimrc BufEnter * call timer_start(200, 'ALENetworkDriveFileSettings', {'repeat': -1})
-" }}}
-
 " vim-lsp {{{
-" Use ALE for diagnostics instead
-let g:lsp_diagnostics_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_highlight_references_enabled = 0  " Use brightest.vim instead
+highlight link LspErrorHighlight SpellBad
+highlight link LspWarningHighlight SpellCap
+highlight link LspInofrmationHighlight SpellRare
+highlight link LspHintHighlight SpellRare
 if executable('pyls')
     autocmd vimrc User lsp_setup call lsp#register_server({
                 \ 'name': 'pyls',
@@ -624,6 +562,13 @@ if executable('texlab')
                 \ 'whitelist': ['tex'],
                 \ })
 endif
+if executable('efm-langserver')
+    autocmd vimrc User lsp_setup call lsp#register_server({
+                \ 'name': 'efm-langserver',
+                \ 'cmd': {server_info->['efm-langserver', '-log', '/home/yasutomi/efm.log']},
+                \ 'whitelist': ['vim', 'markdown', 'yaml'],
+                \ })
+endif
 if executable('docker-langserver')
     autocmd vimrc User lsp_setup call lsp#register_server({
                 \ 'name': 'docker-langserver',
@@ -636,7 +581,7 @@ endif
 " Deoplete.nvim {{{
 call deoplete#custom#option({
             \ 'auto_complete_delay': 0,
-            \ 'auto_refresh_delay': 20,
+            \ 'auto_refresh_delay': 100,
             \ 'ignore_sources': {'_': ['tag', 'dictionary']},
             \})
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
