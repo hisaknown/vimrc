@@ -279,10 +279,10 @@ if has('win32') && !has('nvim')
     vunmap <C-X>
 endif
 
-" Python3 dll
-if has('win32') && !has('nvim')
-    set pythonthreedll=C:\Python37\Python37.dll
-endif
+" " Python3 dll
+" if has('win32') && !has('nvim')
+"     set pythonthreedll=C:\Python37\Python37.dll
+" endif
 set pyxversion=3
 "}}}
 
