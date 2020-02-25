@@ -558,6 +558,34 @@ if executable('pyls')
                 \ 'whitelist': ['python'],
                 \ })
 endif
+" if executable('mspyls')
+"     autocmd vimrc User lsp_setup call lsp#register_server({
+"                 \ 'name': 'mspyls',
+"                 \ 'cmd': {server_info->['mspyls']},
+"                 \ 'initialization_options': {
+"                 \   'analysisUpdates': v:true,
+"                 \   'asyncStartup': v:true,
+"                 \   'displayOptions': {},
+"                 \   'interpreter': {
+"                 \      'properties': {
+"                 \        'InterpreterPath': exepath('python'),
+"                 \        'UseDefaultDatabase': v:true,
+"                 \        'Version': '3.8.1',
+"                 \      }
+"                 \    },
+"                 \ },
+"                 \ 'workspace_config': {
+"                 \   'python': {
+"                 \     'analysis': {
+"                 \       'errors': [],
+"                 \       'info': [],
+"                 \       'disabled': [],
+"                 \     }
+"                 \   }
+"                 \ },
+"                 \ 'whitelist': ['python'],
+"                 \ })
+" endif
 if executable('texlab')
     autocmd vimrc User lsp_setup call lsp#register_server({
                 \ 'name': 'texlab',
@@ -579,6 +607,21 @@ if executable('docker-langserver')
                 \ 'whitelist': ['dockerfile'],
                 \ })
 endif
+if executable('html-languageserver')
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'html-languageserver',
+                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
+                \ 'whitelist': ['html'],
+                \ })
+endif
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'whitelist': ['typescript', 'typescript.tsx', 'javascript'],
+        \ })
+endif
+autocmd vimrc FileType python nnoremap <buffer><silent> K :LspSignatureHelp<CR>
 " }}}
 
 " Deoplete.nvim {{{
