@@ -236,6 +236,9 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <C-Tab> :tabnew<CR>
 nnoremap <M-Tab> :tabclose<CR>
+" Clipboard with insert key
+inoremap <silent><S-Insert> <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
+vnoremap <C-Insert> "+y
 
 if has('mac')
     map ¥ <leader>
