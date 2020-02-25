@@ -33,3 +33,6 @@ build = 'git submodule update --init'
 repo = 'OmniSharp/omnisharp-vim'
 on_ft = ['cs']
 
+[[plugins]]
+repo = 'rhysd/vim-notes-cli'
+on_cmd = ['Notes', 'NotesSelect', 'NotesNew', 'NotesList', 'NotesGrep']

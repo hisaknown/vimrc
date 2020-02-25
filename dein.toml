@@ -101,6 +101,7 @@ repo = 'roxma/nvim-yarp'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+rev = '5.2'
 
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
@@ -161,3 +162,6 @@ repo = 'lighttiger2505/deoplete-vim-lsp'
 
 [[plugins]]
 repo = 'hisaknown/jupyterkernel.vim'
+
+[[plugins]]
+repo = 'dag/vim-fish'
