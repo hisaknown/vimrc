@@ -618,8 +618,7 @@ call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
 " }}}
 
 " nanomap.vim {{{
-let g:nanomap_auto_realign = 1
-let g:nanomap_auto_open_close = 1
+" let g:nanomap_auto_open_close = 1
 " }}}
 
 " OmniSharp {{{
