@@ -165,3 +165,12 @@ repo = 'hisaknown/jupyterkernel.vim'
 
 [[plugins]]
 repo = 'dag/vim-fish'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete.vim'
+# 
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete-lsp.vim'
