@@ -198,7 +198,7 @@ set viminfo='1000,<50,s10,h,rA:,rB:
 if has('nvim')
     set viminfo+=n~/.nviminfo
 else
-    set viminfo+=n~/.vim/rc/.viminfo
+    let &viminfo .= ',n' . g:dotvim_path . '/rc/.viminfo'
 endif
 
 " Resume cursor position
