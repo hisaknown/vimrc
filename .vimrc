@@ -144,6 +144,7 @@ set history=1000
 set updatetime=500
 set spelllang=en,cjk
 set dictionary+=spell
+set mouse=a
 
 " Display settings
 set number
@@ -163,8 +164,8 @@ set conceallevel=2 concealcursor=""
 set t_Co=256
 set background=dark
 set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum""]]
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 set scrolloff=3
 set showtabline=2
 set foldtext=''.foldtext()[1:]
@@ -236,6 +237,9 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <C-Tab> :tabnew<CR>
 nnoremap <M-Tab> :tabclose<CR>
+" Clipboard with insert key
+inoremap <silent><S-Insert> <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
+vnoremap <C-Insert> "+y
 
 if has('mac')
     map ¥ <leader>
@@ -548,34 +552,7 @@ highlight link LspErrorHighlight SpellBad
 highlight link LspWarningHighlight SpellCap
 highlight link LspInofrmationHighlight SpellRare
 highlight link LspHintHighlight SpellRare
-if executable('pyls')
-    autocmd vimrc User lsp_setup call lsp#register_server({
-                \ 'name': 'pyls',
-                \ 'cmd': {server_info->['pyls']},
-                \ 'whitelist': ['python'],
-                \ })
-endif
-if executable('texlab')
-    autocmd vimrc User lsp_setup call lsp#register_server({
-                \ 'name': 'texlab',
-                \ 'cmd': {server_info->['texlab']},
-                \ 'whitelist': ['tex'],
-                \ })
-endif
-if executable('efm-langserver')
-    autocmd vimrc User lsp_setup call lsp#register_server({
-                \ 'name': 'efm-langserver',
-                \ 'cmd': {server_info->['efm-langserver', '-log', '/home/yasutomi/efm.log']},
-                \ 'whitelist': ['vim', 'markdown', 'yaml'],
-                \ })
-endif
-if executable('docker-langserver')
-    autocmd vimrc User lsp_setup call lsp#register_server({
-                \ 'name': 'docker-langserver',
-                \ 'cmd': {server_info->['docker-langserver']},
-                \ 'whitelist': ['dockerfile'],
-                \ })
-endif
+autocmd vimrc FileType python nnoremap <buffer><silent> K :LspSignatureHelp<CR>
 " }}}
 
 " Deoplete.nvim {{{
@@ -641,8 +618,7 @@ call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
 " }}}
 
 " nanomap.vim {{{
-let g:nanomap_auto_realign = 1
-let g:nanomap_auto_open_close = 1
+" let g:nanomap_auto_open_close = 1
 " }}}
 
 " OmniSharp {{{
