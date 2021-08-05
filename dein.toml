@@ -109,19 +109,10 @@ repo = 'fszymanski/deoplete-emoji'
 repo = 'Shougo/neco-vim'
 
 [[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'haya14busa/vim-edgemotion'
-
-[[plugins]]
-repo = 'iyuuya/denite-ale'
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
 
 [[plugins]]
 repo = 'mopp/sky-color-clock.vim'
@@ -164,9 +155,22 @@ repo = 'dag/vim-fish'
 
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
+merged = 0
 
 # [[plugins]]
 # repo = 'prabirshrestha/asyncomplete.vim'
 # 
 # [[plugins]]
 # repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'

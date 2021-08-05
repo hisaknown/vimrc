@@ -17,23 +17,24 @@ autocmd gvimrc BufRead *.py if g:colors_name == 'iceberg' | highlight! link pyth
 colorscheme iceberg
 let g:lightline['colorscheme'] = 'iceberg'
 call lightline#init()
+
+highlight link LspErrorHighlight SpellBad
+highlight link LspWarningHighlight SpellCap
+highlight link LspInofrmationHighlight SpellRare
+highlight link LspHintHighlight SpellRare
 " }}}
 
 " Fonts {{{
 if has('win32')
     set encoding=utf-8
-    set guifont=CicaMod2:h12
+    set guifont=PlemolJP:h14:W500
     set renderoptions=type:directx,renmode:5
     " cmd uses cp932
     set termencoding=cp932
 endif
 if has('unix')
-    set guifont=Jbud\ 12
-    set guifontwide=Jbud\ 12
-    if system('cat /etc/issue') =~ 'Arch'
-        set guifont=Jbud\ 12
-        set guifontwide=Jbud\ 12
-    endif
+    set guifont=HackGenNerd\ 14
+    set guifontwide=HackGenNerd\ 14
 endif
 if has('mac')
     set guifont=CicaMod2:h14
