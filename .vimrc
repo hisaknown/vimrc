@@ -174,6 +174,13 @@ if has('unix')
     language ja_JP.UTF-8
 endif
 
+" Cursor shape in terminal
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[3 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+
 syntax enable
 
 " Transparent background on terminal

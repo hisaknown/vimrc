@@ -38,9 +38,6 @@ repo = 'mattn/webapi-vim'
 repo = 'cohama/lexima.vim'
 
 [[plugins]]
-repo = 'thinca/vim-splash'
-
-[[plugins]]
 repo = 'osyo-manga/vim-brightest'
 
 [[plugins]]
