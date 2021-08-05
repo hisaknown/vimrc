@@ -168,7 +168,7 @@ let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
 let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 set scrolloff=3
 set showtabline=2
-set foldtext=''.foldtext()[1:]
+set foldtext='⊞'.foldtext()[1:]
 set foldmethod=marker
 if has('unix')
     language ja_JP.UTF-8
@@ -407,7 +407,7 @@ endfunction
 " lightline settings {{{
 let g:lightline = {
             \ 'component': {
-            \   'lineinfo': '%3l:%-2v',
+            \   'lineinfo': '%3l:%-2v',
             \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
             \ },
             \ 'active': {
@@ -441,32 +441,14 @@ let g:lightline = {
             \   'lineinfo': '(winwidth(0) >= 70)',
             \   'sky_color_clock': 0,
             \ },
-            \ 'component_function': {
-            \   'readonly': 'g:lightline.my.readonly',
-            \   'filetype': 'g:lightline.my.filetype',
-            \   'fileformat': 'g:lightline.my.fileformat',
-            \ },
             \ 'component_raw': {
             \   'sky_color_clock': 1,
             \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' },
             \ }
 if !has('gui_running')
     let g:lightline['colorscheme'] = 'iceberg'
 endif
 
-let g:lightline.my = {}
-function! g:lightline.my.readonly()
-    return &readonly ? '' : ''
-endfunction
-function! g:lightline.my.filetype()
-    let l:dev_icon = WebDevIconsGetFileTypeSymbol()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? (strlen(l:dev_icon) ? WebDevIconsGetFileTypeSymbol() : &filetype) : 'no ft') : ''
-endfunction
-function! g:lightline.my.fileformat()
-    return winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
 let g:lightline.component.cd = '%{fnamemodify(getcwd(), ":~")}'
 let g:lightline.component.word_count = '%{(mode() == ''v''? wordcount()[''visual_chars''] . ''/'' . wordcount()[''chars''] : wordcount()[''chars'']) . '' chars''}'
 set noshowmode
@@ -548,6 +530,10 @@ let g:vim_markdown_conceal_code_blocks = 0
 " vim-lsp {{{
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0  " Use brightest.vim instead
+let g:lsp_semantic_enabled = 1
+let g:lsp_settings = {
+            \ 'pyls': {'cmd': 'pylsp'}
+            \ }
 highlight link LspErrorHighlight SpellBad
 highlight link LspWarningHighlight SpellCap
 highlight link LspInofrmationHighlight SpellRare
@@ -565,13 +551,28 @@ call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('eskk', 'matchers', [])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
 " Fancy marks
-call deoplete#custom#source('jedi', 'mark', '')
-call deoplete#custom#source('file', 'mark', '')
-call deoplete#custom#source('buffer', 'mark', '')
+call deoplete#custom#source('jedi', 'mark', 'py')
+call deoplete#custom#source('file', 'mark', 'file')
+call deoplete#custom#source('buffer', 'mark', 'buf')
 call deoplete#custom#source('eskk', 'mark', '▽')
+call deoplete#custom#option('num_processes', 0)
 let g:deoplete#enable_at_startup = 0
 let g:deoplete#sources#jedi#ignore_errors = 1  " Temporary
 autocmd vimrc InsertEnter * call deoplete#enable()
+" }}}
+
+" ddc.nvim {{{
+" call ddc#custom#patch_global('sources', ['around', 'eskk'])
+" call ddc#custom#patch_global('sourceOptions', {
+"       \ '_': {'matchers': ['matcher_head']},
+"       \ })
+" call ddc#custom#patch_global('sourceOptions', {
+"       \ 'around': {'matchers': ['matcher_head'], 'mark': 'A'},
+"       \ })
+" call ddc#custom#patch_global('sourceParams', {
+"       \ 'around': {'maxSize': 500},
+"       \ })
+" call ddc#enable()
 " }}}
 
 " Echodoc
