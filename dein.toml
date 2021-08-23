@@ -170,7 +170,13 @@ repo = 'Shougo/ddc.vim'
 repo = 'Shougo/ddc-around'
 
 [[plugins]]
+repo = 'shun/ddc-vim-lsp'
+
+[[plugins]]
 repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'matsui54/ddc-matcher_fuzzy'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'

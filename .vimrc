@@ -558,21 +558,27 @@ call deoplete#custom#source('eskk', 'mark', '▽')
 call deoplete#custom#option('num_processes', 0)
 let g:deoplete#enable_at_startup = 0
 let g:deoplete#sources#jedi#ignore_errors = 1  " Temporary
-autocmd vimrc InsertEnter * call deoplete#enable()
+" autocmd vimrc InsertEnter * call deoplete#enable()
 " }}}
 
 " ddc.nvim {{{
-" call ddc#custom#patch_global('sources', ['around', 'eskk'])
-" call ddc#custom#patch_global('sourceOptions', {
-"       \ '_': {'matchers': ['matcher_head']},
-"       \ })
-" call ddc#custom#patch_global('sourceOptions', {
-"       \ 'around': {'matchers': ['matcher_head'], 'mark': 'A'},
-"       \ })
-" call ddc#custom#patch_global('sourceParams', {
-"       \ 'around': {'maxSize': 500},
-"       \ })
-" call ddc#enable()
+call ddc#custom#patch_global('sources', ['ddc-vim-lsp', 'around', 'eskk'])
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {'matchers': ['matcher_full_fuzzy'],
+      \       'ignoreCase': v:true,
+      \ },
+      \ })
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'ddc-vim-lsp': {'mark': 'lsp'},
+      \ 'around': {'mark': 'A'},
+      \ })
+call ddc#custom#patch_global('sourceParams', {
+      \ 'around': {'maxSize': 500},
+      \ })
+call ddc#custom#patch_filetype(['vim'],
+      \ 'sources', ['necovim', 'around'])
+" Enable vim-lsp source when LSP is available
+call ddc#enable()
 " }}}
 
 " Echodoc
