@@ -576,15 +576,15 @@ call ddc#custom#patch_global('sourceOptions', {
       \ },
       \ })
 call ddc#custom#patch_global('sourceOptions', {
-      \ 'ddc-vim-lsp': {'mark': 'lsp'},
+      \ 'ddc-vim-lsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->|"\w*'},
       \ 'around': {'mark': 'A'},
+      \ 'eskk': {'matchers': []},
       \ })
 call ddc#custom#patch_global('sourceParams', {
       \ 'around': {'maxSize': 500},
       \ })
 call ddc#custom#patch_filetype(['vim'],
       \ 'sources', ['necovim', 'around'])
-" Enable vim-lsp source when LSP is available
 call ddc#enable()
 " }}}
 
