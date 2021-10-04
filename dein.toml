@@ -97,13 +97,7 @@ repo = 'thomd/vim-wasabi-colorscheme'
 repo = 'roxma/nvim-yarp'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
 repo = 'Shougo/echodoc.vim'
-
-[[plugins]]
-repo = 'fszymanski/deoplete-emoji'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
@@ -130,9 +124,6 @@ repo = 'hisaknown/nanomap.vim'
 repo = 'Shougo/neco-syntax'
 
 [[plugins]]
-repo = 'hisaknown/deoplete-latex'
-
-[[plugins]]
 repo = 'sts10/vim-pink-moon'
 
 [[plugins]]
@@ -143,9 +134,6 @@ repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
-
-[[plugins]]
-repo = 'lighttiger2505/deoplete-vim-lsp'
 
 [[plugins]]
 repo = 'hisaknown/jupyterkernel.vim'

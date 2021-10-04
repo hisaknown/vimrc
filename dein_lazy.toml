@@ -25,11 +25,6 @@ repo = 'rhysd/vim-grammarous'
 on_cmd = ['GrammarousCheck']
 
 [[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = ['python']
-build = 'git submodule update --init'
-
-[[plugins]]
 repo = 'OmniSharp/omnisharp-vim'
 on_ft = ['cs']
 

@@ -548,36 +548,17 @@ highlight link LspHintHighlight SpellRare
 autocmd vimrc FileType python nnoremap <buffer><silent> K :LspSignatureHelp<CR>
 " }}}
 
-" Deoplete.nvim {{{
-call deoplete#custom#option({
-            \ 'auto_complete_delay': 0,
-            \ 'auto_refresh_delay': 100,
-            \ 'ignore_sources': {'_': ['tag', 'dictionary']},
-            \})
-call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-call deoplete#custom#source('eskk', 'matchers', [])
-call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
-" Fancy marks
-call deoplete#custom#source('jedi', 'mark', 'py')
-call deoplete#custom#source('file', 'mark', 'file')
-call deoplete#custom#source('buffer', 'mark', 'buf')
-call deoplete#custom#source('eskk', 'mark', '▽')
-call deoplete#custom#option('num_processes', 0)
-let g:deoplete#enable_at_startup = 0
-let g:deoplete#sources#jedi#ignore_errors = 1  " Temporary
-" autocmd vimrc InsertEnter * call deoplete#enable()
-" }}}
-
 " ddc.nvim {{{
-call ddc#custom#patch_global('sources', ['ddc-vim-lsp', 'around', 'eskk'])
+call ddc#custom#patch_global('sources', ['vim-lsp', 'neosnippet', 'around', 'eskk'])
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {'matchers': ['matcher_full_fuzzy'],
       \       'ignoreCase': v:true,
       \ },
       \ })
 call ddc#custom#patch_global('sourceOptions', {
-      \ 'ddc-vim-lsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->|"\w*'},
+      \ 'vim-lsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->|"\w*'},
       \ 'around': {'mark': 'A'},
+      \ 'neosnippet': {'mark': 'NS'},
       \ 'eskk': {'matchers': []},
       \ })
 call ddc#custom#patch_global('sourceParams', {
