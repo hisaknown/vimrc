@@ -564,6 +564,8 @@ call ddc#custom#patch_global('sourceOptions', {
       \ 'around': {'mark': 'A'},
       \ 'neosnippet': {'mark': 'NS'},
       \ 'eskk': {'matchers': []},
+      \ 'cmdline': {'mark': 'cmd'},
+      \ 'cmdline-history': {'mark': 'history'},
       \ })
 call ddc#custom#patch_global('sourceParams', {
       \ 'around': {'maxSize': 500},
