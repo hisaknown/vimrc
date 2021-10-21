@@ -170,6 +170,9 @@ repo = 'Shougo/ddc-matcher_head'
 repo = 'tani/ddc-fuzzy'
 
 [[plugins]]
+repo = 'Shougo/ddc-cmdline'
+
+[[plugins]]
 repo = 'Shougo/ddc-cmdline-history'
 
 [[plugins]]
