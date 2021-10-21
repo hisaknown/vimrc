@@ -155,6 +155,9 @@ merged = 0
 repo = 'Shougo/ddc.vim'
 
 [[plugins]]
+repo = 'Shougo/pum.vim'
+
+[[plugins]]
 repo = 'Shougo/ddc-around'
 
 [[plugins]]
@@ -164,7 +167,10 @@ repo = 'shun/ddc-vim-lsp'
 repo = 'Shougo/ddc-matcher_head'
 
 [[plugins]]
-repo = 'matsui54/ddc-matcher_fuzzy'
+repo = 'tani/ddc-fuzzy'
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline-history'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'

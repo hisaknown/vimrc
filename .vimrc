@@ -538,9 +538,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_highlight_references_enabled = 0  " Use brightest.vim instead
 let g:lsp_semantic_enabled = 1
-let g:lsp_settings = {
-            \ 'pyls': {'cmd': 'pylsp'}
-            \ }
 highlight link LspErrorHighlight SpellBad
 highlight link LspWarningHighlight SpellCap
 highlight link LspInofrmationHighlight SpellRare
@@ -548,10 +545,17 @@ highlight link LspHintHighlight SpellRare
 autocmd vimrc FileType python nnoremap <buffer><silent> K :LspSignatureHelp<CR>
 " }}}
 
-" ddc.nvim {{{
+" ddc.vim {{{
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
+inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
 call ddc#custom#patch_global('sources', ['vim-lsp', 'neosnippet', 'around', 'eskk'])
 call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {'matchers': ['matcher_full_fuzzy'],
+      \ '_': {'matchers': ['matcher_fuzzy'],
+      \       'sorters': ['sorter_fuzzy'],
+      \       'converters': ['converter_fuzzy'],
       \       'ignoreCase': v:true,
       \ },
       \ })
@@ -564,9 +568,46 @@ call ddc#custom#patch_global('sourceOptions', {
 call ddc#custom#patch_global('sourceParams', {
       \ 'around': {'maxSize': 500},
       \ })
+call ddc#custom#patch_global('filterParams', {
+      \ 'converter_fuzzy': {'hlGroup': 'Underlined'},
+      \ })
 call ddc#custom#patch_filetype(['vim'],
       \ 'sources', ['necovim', 'around'])
 call ddc#enable()
+
+" Commandline completion setting
+" Copied from: https://zenn.dev/shougo/articles/ddc-vim-pum-vim
+call ddc#custom#patch_global('autoCompleteEvents', [
+            \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
+            \ 'CmdlineEnter', 'CmdlineChanged',
+            \ ])
+
+nnoremap : <Cmd>call CommandlinePre()<CR>:
+function! CommandlinePre() abort
+    " Note: It disables default command line completion!
+    cnoremap <expr> <Tab>
+                \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+                \ ddc#manual_complete()
+    cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+    cnoremap <C-y> <Cmd>call pum#map#confirm()<CR>
+    cnoremap <C-e> <Cmd>call pum#map#cancel()<CR>
+
+    " Overwrite sources
+    let s:prev_buffer_config = ddc#custom#get_buffer()
+    call ddc#custom#patch_buffer('sources',
+                \ ['cmdline', 'cmdline-history', 'around'])
+
+    autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+
+    " Enable command line completion
+    call ddc#enable_cmdline_completion()
+    call ddc#enable()
+endfunction
+function! CommandlinePost() abort
+    " Restore sources
+    call ddc#custom#set_buffer(s:prev_buffer_config)
+    cunmap <Tab>
+endfunction
 " }}}
 
 " Echodoc
