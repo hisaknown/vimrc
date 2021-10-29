@@ -369,46 +369,26 @@ let g:tex_conceal = ''
 let g:tex_flavor = 'latex'
 " }}}
 
-" eskk.vim settings {{{
-if has('win32')
-    let g:eskk#large_dictionary = {
-                \'path':'~/SKK-JISYO.L',
-                \'sorted':1,
-                \'encoding':'euc-jp',
-                \}
-endif
-if has('unix')
-    " UTF-8版を用意しないとだめっぽい？
-    let g:eskk#large_dictionary = {
-                \'path':'/usr/share/skk/SKK-JISYO.L',
-                \'sorted':1,
-                \'encoding':'euc-jp',
-                \}
-    set imdisable
-endif
-if has('mac')
-    let g:eskk#large_dictionary = {
-                \'path':'~/Library/Application\ Support/AquaSKK/SKK-JISYO.L',
-                \'sorted':1,
-                \'encoding':'euc-jp',
-                \}
-endif
-let g:eskk#auto_save_dictionary_at_exit = 1
-let g:eskk#egg_like_newline = 1
-let g:eskk#egg_like_newline_completion = 1
-"set imdisable
-" Ten, maru to comma, period
-autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
-function! s:eskk_initial_pre()
-    let l:t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-    call l:t.add_map(',', '，')
-    call l:t.add_map('.', '．') 
-    call eskk#register_mode_table('hira', l:t)
-    let l:t = eskk#table#new('rom_to_kata*', 'rom_to_kata')
-    call l:t.add_map(',', '，')
-    call l:t.add_map('.', '．')
-    call eskk#register_mode_table('kata', l:t)
+" skkeleton.vim settings {{{
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
+function! s:skkeleton_init() abort
+    call skkeleton#config({
+                \ 'eggLikeNewline': v:true
+                \ })
+    if has('win32')
+        call skkeleton#config({
+                    \ 'globalJisyo': '~/SKK-JISYO.L',
+                    \ })
+    endif
+    call skkeleton#register_kanatable('rom', {
+                \ "z\<Space>": ["\u3000", ''],
+                \ ",": ['，', ''],
+                \ ".": ['．', ''],
+                \ })
 endfunction
+autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+"set imdisable
 " }}}
 
 " lightline settings {{{
@@ -419,7 +399,7 @@ let g:lightline = {
             \ },
             \ 'active': {
             \   'left': [
-            \     ['mode', 'paste'],
+            \     ['mode', 'paste', 'skkeleton'],
             \     ['readonly', 'filename', 'modified'],
             \     ['word_count'],
             \   ],
@@ -451,6 +431,9 @@ let g:lightline = {
             \ 'component_raw': {
             \   'sky_color_clock': 1,
             \ },
+            \ 'component_function': {
+            \   'skkeleton': 'LightlineSkkeletonStatus',
+            \ },
             \ }
 if !has('gui_running')
     let g:lightline['colorscheme'] = 'iceberg'
@@ -458,6 +441,19 @@ endif
 
 let g:lightline.component.cd = '%{fnamemodify(getcwd(), ":~")}'
 let g:lightline.component.word_count = '%{(mode() == ''v''? wordcount()[''visual_chars''] . ''/'' . wordcount()[''chars''] : wordcount()[''chars'']) . '' chars''}'
+function! LightlineSkkeletonStatus() abort
+    if !skkeleton#is_enabled()
+        return ''
+    endif
+    let status = skkeleton#mode()
+    if status == 'hira'
+        return 'あ'
+    elseif status == 'kata'
+        return 'ア'
+    else
+        return ''
+    endif
+endfunction
 set noshowmode
 " }}}
 
@@ -551,7 +547,7 @@ inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y> <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e> <Cmd>call pum#map#cancel()<CR>
-call ddc#custom#patch_global('sources', ['vim-lsp', 'neosnippet', 'around', 'eskk'])
+call ddc#custom#patch_global('sources', ['vim-lsp', 'neosnippet', 'around', 'skkeleton'])
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {'matchers': ['matcher_fuzzy'],
       \       'sorters': ['sorter_fuzzy'],
@@ -563,7 +559,7 @@ call ddc#custom#patch_global('sourceOptions', {
       \ 'vim-lsp': {'mark': 'lsp', 'forceCompletionPattern': '\.|:|->|"\w*'},
       \ 'around': {'mark': 'A'},
       \ 'neosnippet': {'mark': 'NS'},
-      \ 'eskk': {'matchers': []},
+      \ 'skkeleton': {'mark': 'skk', 'matchers': ['skkeleton'], 'sorters': []},
       \ 'cmdline': {'mark': 'cmd'},
       \ 'cmdline-history': {'mark': 'history'},
       \ })
@@ -573,6 +569,7 @@ call ddc#custom#patch_global('sourceParams', {
 call ddc#custom#patch_global('filterParams', {
       \ 'converter_fuzzy': {'hlGroup': 'Underlined'},
       \ })
+call ddc#custom#patch_global('backspaceCompletion', v:true)
 call ddc#custom#patch_filetype(['vim'],
       \ 'sources', ['necovim', 'around'])
 call ddc#enable()

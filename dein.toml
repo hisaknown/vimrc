@@ -20,7 +20,7 @@ repo = 'itchyny/lightline.vim'
 repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
-repo = 'tyru/eskk.vim'
+repo = 'vim-skk/skkeleton'
 
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
