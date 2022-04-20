@@ -16,11 +16,6 @@ repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown']
 
 [[plugins]]
-repo = 'syngan/vim-pukiwiki'
-on_cmd = ['PukiWiki']
-on_ft = ['pukiwiki']
-
-[[plugins]]
 repo = 'rhysd/vim-grammarous'
 on_cmd = ['GrammarousCheck']
 

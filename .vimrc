@@ -142,6 +142,7 @@ set wildmenu
 set formatoptions+=mM
 set history=1000
 set updatetime=500
+set ttimeoutlen=100
 set spelllang=en,cjk
 set dictionary+=spell
 set mouse=a
@@ -304,7 +305,7 @@ if has('mac')
 endif
 "}}}
 
-" Quickrun settings
+" Quickrun settings {{{
 let g:quickrun_config = {
             \   '_' : {
             \       'runner' : 'job',
@@ -316,11 +317,13 @@ let g:quickrun_config['markdown'] = {
             \ 'args': '--mathjax'
             \ }
 
+" Mapping
+nnoremap <Leader>r <Cmd> :QuickRun -outputter null<CR>
+" }}}
+
 " TeX and quickrun settings {{{
 let g:quickrun_config['tex'] = {
             \   'command' : 'latexmk',
-            \   'outputter': 'quickfix',
-            \   'quickfix/errorformat' : '\%A! \%m,\%Zl\%.\%l \%m,\%-G\%.\%#',
             \   'exec': ['%c %s'],
             \   'runner/read_timeout': 10,
             \ }
@@ -397,7 +400,6 @@ autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 let g:lightline = {
             \ 'component': {
             \   'lineinfo': '%3l:%-2v',
-            \   'sky_color_clock': "%#SkyColorClock#%{' ' . sky_color_clock#statusline() . ' '}%#SkyColorClockTemp# ",
             \ },
             \ 'active': {
             \   'left': [
@@ -406,7 +408,7 @@ let g:lightline = {
             \     ['word_count'],
             \   ],
             \   'right': [
-            \     ['lineinfo', 'sky_color_clock'],
+            \     ['lineinfo'],
             \     ['fileformat', 'fileencoding', 'filetype'],
             \   ],
             \ },
