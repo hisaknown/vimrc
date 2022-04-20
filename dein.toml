@@ -2,12 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
-
-[[plugins]]
 repo = 'thinca/vim-quickrun'
 
 [[plugins]]
@@ -68,20 +62,13 @@ repo = 'MaxSt/FlatColor'
 repo = 'jonathanfilip/vim-lucius'
 
 [[plugins]]
-repo = 'mattn/benchvimrc-vim'
-
-[[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
-
-[[plugins]]
-repo = 'junegunn/vim-emoji'
 
 [[plugins]]
 repo = 'tommcdo/vim-lion'
 
 [[plugins]]
 repo = 'cocopon/vaffle.vim'
-#on_cmd = ['Vaffle']
 
 [[plugins]]
 repo = 'mattn/vimtweak'
@@ -94,9 +81,6 @@ repo = 'NLKNguyen/papercolor-theme'
 repo = 'thomd/vim-wasabi-colorscheme'
 
 [[plugins]]
-repo = 'roxma/nvim-yarp'
-
-[[plugins]]
 repo = 'Shougo/echodoc.vim'
 
 [[plugins]]
@@ -107,9 +91,6 @@ repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'haya14busa/vim-edgemotion'
-
-[[plugins]]
-repo = 'mopp/sky-color-clock.vim'
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
@@ -128,9 +109,6 @@ repo = 'sts10/vim-pink-moon'
 
 [[plugins]]
 repo = 'Heorhiy/VisualStudioDark.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
