@@ -40,7 +40,7 @@ if has('mac')
     set guifont=CicaMod2:h14
 endif
 
-set ambiwidth=double
+set ambiwidth=single
 " }}}
 
 

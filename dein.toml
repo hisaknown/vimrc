@@ -155,3 +155,6 @@ repo = 'Shougo/ddc-cmdline-history'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'rbtnn/vim-ambiwidth'

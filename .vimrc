@@ -118,7 +118,7 @@ endif
 
 " ambiwidth on unix
 if has('unix')
-    set ambiwidth=double
+    set ambiwidth=single
 endif
 
 " Search settings
