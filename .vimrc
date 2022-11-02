@@ -546,6 +546,7 @@ autocmd vimrc FileType python nnoremap <buffer><silent> K :LspSignatureHelp<CR>
 " }}}
 
 " ddc.vim {{{
+call ddc#custom#patch_global('ui', 'pum')
 call ddc#custom#patch_global('completionMenu', 'pum.vim')
 inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>

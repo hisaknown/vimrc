@@ -136,6 +136,12 @@ repo = 'Shougo/ddc.vim'
 repo = 'Shougo/pum.vim'
 
 [[plugins]]
+repo = 'Shougo/ddc-ui-native'
+
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+
+[[plugins]]
 repo = 'Shougo/ddc-around'
 
 [[plugins]]
